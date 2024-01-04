@@ -19,5 +19,15 @@ export default {
         },
     },
 
+    theme: {
+        extend: {
+          colors: {
+            'deep-blue': '#0c1124',
+          }
+        }
+    },
+
+
+
     plugins: [forms, typography],
 };

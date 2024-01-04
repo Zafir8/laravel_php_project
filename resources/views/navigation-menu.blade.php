@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+{{-- <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -216,4 +216,71 @@
             </div>
         </div>
     </div>
+</nav> --}}
+
+<!-- Tailwind CSS Navbar -->
+<nav class="bg-deep-blue p-2 text-white">
+    <div class="flex items-center justify-between flex-wrap">
+        <!-- Logo and Brand Name -->
+        <div class="flex items-center flex-shrink-0 mr-6">
+            <img src="{{ asset('images/Shiftme logo.png') }}" alt="ShiftMe Logo" class="h-10">
+            <span class="font-semibold text-xl tracking-tight">ShiftMe</span>
+        </div>
+
+        <!-- Hamburger Menu Button (for smaller screens) -->
+        <div class="block lg:hidden">
+            <button id="navbarToggle" class="flex items-center px-3 py-2 border rounded text-white border-white">
+                <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0zM0 9h20v2H0zM0 15h20v2H0z"/></svg>
+            </button>
+        </div>
+
+        <!-- Navbar Links -->
+        <div id="navbar" class="hidden w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+            <div class="text-sm lg:flex-grow">
+                <a href="#home" class="block mt-1 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
+                    Home
+                </a>
+                <a href="#book-a-ride" class="block mt-1 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
+                    Book a Ride
+                </a>
+                <a href="#about-us" class="block mt-1 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
+                    About Us
+                </a>
+                <a href="#contact-us" class="block mt-1 lg:inline-block lg:mt-0 text-white hover:text-white">
+                    Contact Us
+                </a>
+            </div>
+            <!-- Authentication Links -->
+            <div>
+                @if (Route::has('login'))
+                    @auth
+                        <a href="{{ url('/dashboard') }}" class="block mt-1 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
+                            Dashboard
+                        </a>
+                    @else
+                        <a href="{{ route('login') }}" class="block mt-1 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
+                            Log in
+                        </a>
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="block mt-1 lg:inline-block lg:mt-0 text-white hover:text-white">
+                                Register
+                            </a>
+                        @endif
+                    @endauth
+                @endif
+            </div>
+        </div>
+    </div>
 </nav>
+
+<!-- Tailwind CSS for Navbar Toggle (using Alpine.js or similar) -->
+<script>
+    document.getElementById('navbarToggle').addEventListener('click', function () {
+        var navbar = document.getElementById('navbar');
+        if (navbar.classList.contains('hidden')) {
+            navbar.classList.remove('hidden');
+        } else {
+            navbar.classList.add('hidden');
+        }
+    });
+</script>

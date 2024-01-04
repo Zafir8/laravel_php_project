@@ -14,17 +14,10 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
-Route::get('hello', function () {
-    return view ('hello' , [
-        'name' => 'Taylor',
-        'greeting' => 'Hello, World!',
-        'age' => '20'
-    
-    ]); 
-});
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
