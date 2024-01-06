@@ -1,5 +1,5 @@
 <x-app-layout>
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -13,7 +13,7 @@
 
 
 </head>
-<body class="bg-white">
+<body class="bg-white py-24 sm:py-32">
     {{-- give me the font style --}}
     <h1 class="text-4xl font-bold text-sky-700 my-8 ml-5 ">ShiftMe</h1>
     <div class="flex flex-wrap md:flex-nowrap"> <!-- Use md:flex-nowrap to prevent wrap on medium devices and up -->
@@ -79,16 +79,83 @@
             </div>
         </div>
     </div>
-
-
     </section>
 
     <section>
-        <h2 class="text-2xl font-bold text-sky-700 my-8 text-center ">Available on </h2>
-        <div class="flex justify-center items-center "> <!-- Container centered horizontally and vertically -->
-            <img src="{{asset('images/appstore-playstore.png')}}" alt="Descriptive Alt Text" class="max-w-100px h-auto w-72 h-px "> <!-- Image will maintain its aspect ratio -->
+        <div class="bg-white py-24 sm:py-32">
+            <div class="mx-auto max-w-7xl px-6 lg:px-8">
+              <div class="mx-auto max-w-2xl sm:text-center">
+                <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Simple pricing</h2>
+              </div>
+              <div class="mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
+                <div class="p-8 sm:p-10 lg:flex-auto">
+                  <h3 class="text-2xl font-bold tracking-tight text-gray-900">Subscription</h3>
+                    <p class="mt-4 text-lg text-gray-500">Pay a fix charge for a subscription as you go.</p>
+                  <div class="mt-10 flex items-center gap-x-4">
+                    <h4 class="flex-none text-sm font-semibold leading-6 text-indigo-600">What’s included</h4>
+                    <div class="h-px flex-auto bg-gray-100"></div>
+                  </div>
+                  <ul role="list" class="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-gray-600 sm:grid-cols-2 sm:gap-6">
+                    <li class="flex gap-x-3">
+                      <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                      </svg>
+                      60 trips per month
+                    </li>
+                    <li class="flex gap-x-3">
+                      <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                      </svg>
+                      Child app access
+                    </li>
+                    <li class="flex gap-x-3">
+                      <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                      </svg>
+                        Parent app access
+                    </li>
+                    <li class="flex gap-x-3">
+                      <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                      </svg>
+                      Official mobile app
+                    </li>
+                  </ul>
+                </div>
+                <div class="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
+                  <div class="rounded-2xl bg-gray-50 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16">
+                    <div class="mx-auto max-w-xs px-8">
+                      <p class="text-base font-semibold text-gray-600">Pay once in every 30 date</p>
+                      <p class="mt-6 flex items-baseline justify-center gap-x-2">
+                        <span class="text-5xl font-bold tracking-tight text-gray-900">12500</span>
+                        <span class="text-sm font-semibold leading-6 tracking-wide text-gray-600">LKR</span>
+                      </p>
+                      <a href="#" class="mt-10 block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Buy now</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </section>
+
+    <section>
+        <div class="bg-indigo-50 p-8">
+            <div class="container mx-auto text-center">
+                <h2 class="text-2xl font-bold mb-4">Subscribe to Our Offers</h2>
+                <p class="mb-6">Get the latest updates and offers directly in your inbox.</p>
+                <form action="YOUR_SUBSCRIPTION_ENDPOINT" method="POST" class="flex justify-center">
+                    <input type="email" name="email" placeholder="Enter your email" required class="p-2 rounded-l-lg border border-gray-300">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 rounded-r-lg">Subscribe</button>
+                </form>
+            </div>
         </div>
     </section>
+
+    <section>
+
+    </section>
+
 
     <footer class="bg-deep-blue text-white text-center p-4">
         <div class="container mx-auto">
@@ -106,12 +173,6 @@
             </div>
         </div>
     </footer>
-
-
-
-
-
-
 </body>
 </html>
 
