@@ -26,6 +26,11 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::resource('vehicle-categories', \App\Http\Controllers\VehicleCategoryController::class);
+
+
+
 });
 
 Route::post('/post-test', function (Request $request) {

@@ -253,21 +253,29 @@
             <!-- Authentication Links -->
             <div>
                 @if (Route::has('login'))
-                    @auth
-                        <a href="{{ url('/dashboard') }}" class="block mt-1 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
-                            Dashboard
+                @auth
+                    <a href="{{ url('/dashboard') }}" class="inline-block lg:mt-0 text-white hover:text-white mr-4">
+                        Dashboard
+                    </a>
+                    <form method="POST" action="{{ route('logout') }}" x-data>
+                        @csrf
+                        <x-dropdown-link class="inline-block lg:mt-0 text-white mr-4" href="{{ route('logout') }}"
+                                         @click.prevent="$root.submit();">
+                            {{ __('Log Out') }}
+                        </x-dropdown-link>
+                    </form>
+                @else
+                    <a href="{{ route('login') }}" class="inline-block lg:mt-0 text-white hover:text-white mr-4">
+                        Log in
+                    </a>
+                    @if (Route::has('register'))
+                        <a href="{{ route('register') }}" class="inline-block lg:mt-0 text-white hover:text-white">
+                            Register
                         </a>
-                    @else
-                        <a href="{{ route('login') }}" class="block mt-1 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
-                            Log in
-                        </a>
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="block mt-1 lg:inline-block lg:mt-0 text-white hover:text-white">
-                                Register
-                            </a>
-                        @endif
-                    @endauth
-                @endif
+                    @endif
+                @endauth
+            @endif
+
             </div>
         </div>
     </div>
