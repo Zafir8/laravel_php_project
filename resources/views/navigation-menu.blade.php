@@ -295,7 +295,7 @@
                                 {{ __('Manage Users') }}
                             </div>
 
-                            <x-dropdown-link href="">
+                            <x-dropdown-link href="{{ route('user.index') }}">
                                 {{ __('Users') }}
                             </x-dropdown-link>
 

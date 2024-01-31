@@ -36,3 +36,8 @@ Route::middleware([
 Route::post('/post-test', function (Request $request) {
     dd($request);
 });
+
+Route::resource(
+    'user',
+    \App\Http\Controllers\UserController::class
+);
