@@ -71,7 +71,7 @@
                     </div>
                 @endif
 
-                <!-- Settings Dropdown -->
+                 Settings Dropdown
                 <div class="ms-3 relative">
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
@@ -252,29 +252,65 @@
             </div>
             <!-- Authentication Links -->
             <div>
-                @if (Route::has('login'))
                 @auth
-                    <a href="{{ url('/dashboard') }}" class="inline-block lg:mt-0 text-white hover:text-white mr-4">
-                        Dashboard
+                <!-- Dashboard Link -->
+                <a href="{{ url('/dashboard') }}" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-deep-blue hover:bg-white mt-4 lg:mt-0">
+                    Dashboard
+                </a>
+
+                <!-- Dropdown for User Profile -->
+                <div class="ml-3 relative">
+                    <x-dropdown align="right" width="48">
+                        <x-slot name="trigger">
+                            @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
+                                <button class="flex items-center text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+                                    <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                                </button>
+                            @else
+                                <button class="flex items-center text-sm rounded-full text-white focus:outline-none transition">
+                                    {{ Auth::user()->name }}
+
+                                    <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path fill-rule="evenodd" d="M5.05 5.05a7.5 7.5 0 0110.9 0 7.5 7.5 0 010 10.9 7.5 7.5 0 01-10.9 0 7.5 7.5 0 010-10.9z" clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                            @endif
+                        </x-slot>
+
+                        <x-slot name="content">
+                            <!-- Dropdown Links -->
+                            <x-dropdown-link :href="route('profile.show')">
+                                {{ __('Profile') }}
+                            </x-dropdown-link>
+                            @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
+                                <x-dropdown-link :href="route('api-tokens.index')">
+                                    {{ __('API Tokens') }}
+                                </x-dropdown-link>
+                            @endif
+
+                            <!-- Logout -->
+                            <form method="POST" action="{{ route('logout') }}" x-data>
+                                @csrf
+
+                                <x-dropdown-link :href="route('logout')"
+                                                 @click.prevent="$root.submit();">
+                                    {{ __('Log Out') }}
+                                </x-dropdown-link>
+                            </form>
+                        </x-slot>
+                    </x-dropdown>
+                </div>
+            @else
+                <!-- Log in and Register Links -->
+                <a href="{{ route('login') }}" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-deep-blue hover:bg-white mt-4 lg:mt-0">
+                    Log in
+                </a>
+                @if (Route::has('register'))
+                    <a href="{{ route('register') }}" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-deep-blue hover:bg-white mt-4 lg:mt-0">
+                        Register
                     </a>
-                    <form method="POST" action="{{ route('logout') }}" x-data>
-                        @csrf
-                        <x-dropdown-link class="inline-block lg:mt-0 text-white mr-4" href="{{ route('logout') }}"
-                                         @click.prevent="$root.submit();">
-                            {{ __('Log Out') }}
-                        </x-dropdown-link>
-                    </form>
-                @else
-                    <a href="{{ route('login') }}" class="inline-block lg:mt-0 text-white hover:text-white mr-4">
-                        Log in
-                    </a>
-                    @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="inline-block lg:mt-0 text-white hover:text-white">
-                            Register
-                        </a>
-                    @endif
-                @endauth
-            @endif
+                @endif
+            @endauth
 
             </div>
         </div>
