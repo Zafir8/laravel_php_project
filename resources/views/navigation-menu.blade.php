@@ -278,21 +278,38 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <!-- Dropdown Links -->
-                            <x-dropdown-link :href="route('profile.show')">
+                            <!-- Account Management -->
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Manage Account') }}
+                            </div>
+
+                            <x-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
-                            @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                                <x-dropdown-link :href="route('api-tokens.index')">
-                                    {{ __('API Tokens') }}
-                                </x-dropdown-link>
-                            @endif
 
-                            <!-- Logout -->
+
+                            <div class="border-t border-gray-100"></div>
+
+                            <!-- Manage Users -->
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Manage Users') }}
+                            </div>
+
+                            <x-dropdown-link href="">
+                                {{ __('Users') }}
+                            </x-dropdown-link>
+
+
+
+
+
+                            <div class="border-t border-gray-100"></div>
+
+                            <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}" x-data>
                                 @csrf
 
-                                <x-dropdown-link :href="route('logout')"
+                                <x-dropdown-link href="{{ route('logout') }}"
                                                  @click.prevent="$root.submit();">
                                     {{ __('Log Out') }}
                                 </x-dropdown-link>
@@ -300,7 +317,8 @@
                         </x-slot>
                     </x-dropdown>
                 </div>
-            @else
+                @else
+
                 <!-- Log in and Register Links -->
                 <a href="{{ route('login') }}" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-deep-blue hover:bg-white mt-4 lg:mt-0">
                     Log in
