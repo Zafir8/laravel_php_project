@@ -8,4 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class Vehicle extends Model
 {
     use HasFactory;
+
+    // This is model to represent a bus or a van, (no cars and any other shit)
+
+    protected $fillable = [
+        'category_id',
+        'number',
+        'engine_number',
+        'chassis_number',
+        'owner_name',
+        'owner_nic',
+        'owner_license',
+        'owner_address',
+        'owner_mobile',
+        'status', // active, inactive, under_maintanance
+    ];
+
+
 }
