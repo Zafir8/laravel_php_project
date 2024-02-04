@@ -303,6 +303,10 @@
                                 {{ __('Vehicle Categories') }}
                             </x-dropdown-link>
 
+                            <x-dropdown-link href="{{ route('vehicles.index') }}">
+                                {{ __('Vehicles') }}
+                            </x-dropdown-link>
+
 
 
 

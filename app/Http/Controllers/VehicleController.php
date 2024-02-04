@@ -13,6 +13,8 @@ class VehicleController extends Controller
      */
     public function index()
     {
+        $vehicles = Vehicle::paginate(10); // Adjust the number as needed
+        return view('vehicle.index', compact('vehicles'));
 
     }
 
@@ -21,7 +23,7 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        return view('vehicle-categories.form', [
+        return view('vehicle.form', [
             'vehicle' => new Vehicle(),
         ]);
     }

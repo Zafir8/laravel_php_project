@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Role;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -31,6 +32,9 @@ Route::middleware([
 
     Route::resource('vehicle-categories', \App\Http\Controllers\VehicleCategoryController::class);
     Route::get('/vehicles/create', [VehicleController::class, 'create'])->name('vehicle.create');
+
+    Route::resource('vehicles', \App\Http\Controllers\VehicleController::class);
+    Route::resource('users', \App\Http\Controllers\UserController::class);
 
 
 
