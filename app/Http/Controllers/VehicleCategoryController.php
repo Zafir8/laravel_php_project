@@ -13,8 +13,8 @@ class VehicleCategoryController extends Controller
      */
     public function index()
     {
-
-        return view('vehicle-categories.index');
+        $vehicleCategories = VehicleCategory::paginate(10); // Adjust the number as needed
+        return view('vehicle-categories.index', compact('vehicleCategories'));
     }
 
     /**

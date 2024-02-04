@@ -13,7 +13,7 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -21,7 +21,9 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        //
+        return view('vehicle-categories.form', [
+            'vehicle' => new Vehicle(),
+        ]);
     }
 
     /**

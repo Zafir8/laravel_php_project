@@ -299,6 +299,10 @@
                                 {{ __('Users') }}
                             </x-dropdown-link>
 
+                            <x-dropdown-link href="{{ route('vehicle-categories.index') }}">
+                                {{ __('Vehicle Categories') }}
+                            </x-dropdown-link>
+
 
 
 

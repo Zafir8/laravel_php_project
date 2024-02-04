@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+
+use App\Http\Controllers\VehicleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,6 +30,9 @@ Route::middleware([
     })->name('dashboard');
 
     Route::resource('vehicle-categories', \App\Http\Controllers\VehicleCategoryController::class);
+    Route::get('/vehicles/create', [VehicleController::class, 'create'])->name('vehicle.create');
+
+
 
 
 
