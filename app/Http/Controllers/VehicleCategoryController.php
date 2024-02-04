@@ -14,8 +14,10 @@ class VehicleCategoryController extends Controller
     public function index()
     {
         $vehicleCategories = VehicleCategory::paginate(10); // Adjust the number as needed
-        return view('vehicle-categories.index', compact('vehicleCategories'));
-        dd($vehicleCategories);
+
+        return view('vehicle-categories.index', [
+            'categories' => $vehicleCategories
+        ]);
     }
 
     /**
@@ -24,7 +26,7 @@ class VehicleCategoryController extends Controller
     public function create()
     {
         return view('vehicle-categories.form', [
-            'vehicleCategory' => new VehicleCategory(),
+            'category' => new VehicleCategory()
         ]);
     }
 
@@ -33,7 +35,13 @@ class VehicleCategoryController extends Controller
      */
     public function store(StoreVehicleCategoryRequest $request)
     {
-        dd($request);
+        VehicleCategory::create([
+            'name' => $request->get('name'),
+            'description' => $request->get('description'),
+            'status' => $request->get('status', 0),
+        ]);
+
+        return redirect()->route('vehicle-categories.index');
     }
 
     /**
@@ -49,7 +57,9 @@ class VehicleCategoryController extends Controller
      */
     public function edit(VehicleCategory $vehicleCategory)
     {
-    return view('vehicle-categories.form', compact('vehicleCategory'));
+        return view('vehicle-categories.form', [
+            'category' => $vehicleCategory
+        ]);
     }
 
     /**
@@ -57,7 +67,14 @@ class VehicleCategoryController extends Controller
      */
     public function update(UpdateVehicleCategoryRequest $request, VehicleCategory $vehicleCategory)
     {
-        //
+
+        $vehicleCategory->update([
+            'name' => $request->get('name'),
+            'description' => $request->get('description'),
+            'status' => $request->get('status', 0),
+        ]);
+
+        return redirect()->route('vehicle-categories.index');
     }
 
     /**

@@ -18,7 +18,5 @@ class VehicleCategory extends Model
         'name',
         'description',
         'status',
-
-
     ];
 }
