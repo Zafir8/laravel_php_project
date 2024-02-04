@@ -12,7 +12,7 @@ class Vehicle extends Model
     // This is model to represent a bus or a van, (no cars and any other shit)
 
     protected $fillable = [
-        'category_id',
+        'vehicle_category_id',
         'number',
         'engine_number',
         'chassis_number',
@@ -24,5 +24,9 @@ class Vehicle extends Model
         'status', // active, inactive, under_maintanance
     ];
 
+
+    public function category(){
+        return $this->belongsTo(VehicleCategory::class, 'vehicle_category_id');
+    }
 
 }

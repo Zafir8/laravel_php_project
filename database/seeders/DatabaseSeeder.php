@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         \App\Models\User::factory(10)->create();
-        \App\Models\Vehicle::factory(10)->create();
 
         \App\Models\User::factory()->create([
             'name' => 'Admin',
@@ -26,10 +25,10 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             VehicleCategorySeeder::class,
-            VehicleSeeder::class,
             DriverProfileSeeder::class,
             ScheduleSeeder::class,
-            BookingSeeder::class
+            BookingSeeder::class,
+            VehicleSeeder::class,
         ]);
     }
 }
