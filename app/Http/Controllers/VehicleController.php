@@ -14,6 +14,8 @@ class VehicleController extends Controller
     public function index()
     {
         $vehicles = Vehicle::paginate(10); // Adjust the number as needed
+        $vehicles->load('category');
+
         return view('vehicle.index', compact('vehicles'));
 
     }
@@ -33,7 +35,20 @@ class VehicleController extends Controller
      */
     public function store(StoreVehicleRequest $request)
     {
-        //
+        Vehicle::create([
+            'vehicle_category_id' => $request->get('vehicle_category_id'),
+            'number' => $request->get('number'),
+            'engine_number' => $request->get('engine_number'),
+            'chassis_number' => $request->get('chassis_number'),
+            'owner_name' => $request->get('owner_name'),
+            'owner_nic' => $request->get('owner_nic'),
+            'owner_license' => $request->get('owner_license'),
+            'owner_address' => $request->get('owner_address'),
+            'owner_mobile' => $request->get('owner_mobile'),
+            'status' => $request->get('status', 0),
+        ]);
+
+        return redirect()->route('vehicles.index');
     }
 
     /**
@@ -49,7 +64,9 @@ class VehicleController extends Controller
      */
     public function edit(Vehicle $vehicle)
     {
-        //
+        return view('vehicle.form', [
+            'vehicle' => $vehicle,
+        ]);
     }
 
     /**
@@ -57,7 +74,20 @@ class VehicleController extends Controller
      */
     public function update(UpdateVehicleRequest $request, Vehicle $vehicle)
     {
-        //
+        $vehicle->update([
+            'vehicle_category_id' => $request->get('vehicle_category_id'),
+            'number' => $request->get('number'),
+            'engine_number' => $request->get('engine_number'),
+            'chassis_number' => $request->get('chassis_number'),
+            'owner_name' => $request->get('owner_name'),
+            'owner_nic' => $request->get('owner_nic'),
+            'owner_license' => $request->get('owner_license'),
+            'owner_address' => $request->get('owner_address'),
+            'owner_mobile' => $request->get('owner_mobile'),
+            'status' => $request->get('status', 0),
+        ]);
+
+        return redirect()->route('vehicles.index');
     }
 
     /**
@@ -65,6 +95,8 @@ class VehicleController extends Controller
      */
     public function destroy(Vehicle $vehicle)
     {
-        //
+        $vehicle->delete();
+
+        return redirect()->route('vehicles.index');
     }
 }
