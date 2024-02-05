@@ -254,7 +254,7 @@
             <div>
                 @auth
                 <!-- Dashboard Link -->
-                <a href="{{ url('/dashboard') }}" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-deep-blue hover:bg-white mt-4 lg:mt-0">
+                <a href="{{ url('/dashboard') }}" class="inline-block text-sm px-4 py-2 leading-none text-white border-white hover:border-transparent hover:text-deep-blue mt-4 lg:mt-0">
                     Dashboard
                 </a>
 
@@ -328,11 +328,11 @@
                 @else
 
                 <!-- Log in and Register Links -->
-                <a href="{{ route('login') }}" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-deep-blue hover:bg-white mt-4 lg:mt-0">
+                <a href="{{ route('login') }}" class="inline-block text-sm px-4 py-2 leading-none text-white hover:text-deep-blue mt-4 lg:mt-0">
                     Log in
                 </a>
                 @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-deep-blue hover:bg-white mt-4 lg:mt-0">
+                    <a href="{{ route('register') }}" class="inline-block text-sm px-4 py-2 leading-none border-white text-white hover:text-deep-blue mt-4 lg:mt-0">
                         Register
                     </a>
                 @endif
