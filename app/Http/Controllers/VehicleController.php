@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Vehicle;
 use App\Http\Requests\StoreVehicleRequest;
 use App\Http\Requests\UpdateVehicleRequest;
+use App\Models\VehicleCategory;
 
 class VehicleController extends Controller
 {
@@ -14,21 +15,20 @@ class VehicleController extends Controller
     public function index()
     {
         $vehicles = Vehicle::paginate(10); // Adjust the number as needed
-        $vehicles->load('category');
 
         return view('vehicle.index', compact('vehicles'));
-
     }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        return view('vehicle.form', [
-            'vehicle' => new Vehicle(),
-        ]);
-    }
+{
+    $vehicleCategories = VehicleCategory::all(); // Get all vehicle categories
+    // Adjust the view path to 'vehicle.form' assuming form.blade.php is directly inside the 'vehicle' folder
+    return view('vehicle.form', compact('vehicleCategories'));
+}
+
 
     /**
      * Store a newly created resource in storage.
@@ -64,9 +64,8 @@ class VehicleController extends Controller
      */
     public function edit(Vehicle $vehicle)
     {
-        return view('vehicle.form', [
-            'vehicle' => $vehicle,
-        ]);
+        $vehicleCategories = VehicleCategory::all(); // Get all vehicle categories
+    return view('vehicles.edit', compact('vehicle', 'vehicleCategories'));
     }
 
     /**

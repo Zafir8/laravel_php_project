@@ -16,14 +16,13 @@
                         <div>
                             <x-label for="vehicle_category_id" :value="__('Vehicle Category')" />
                             <select id="vehicle_category_id" name="vehicle_category_id" required class="mt-1 block w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                @foreach ($vehicle as $category)
-                                    <option value="{{ $vehicle->id }}">
-                                        {{ $vehicle->name }}
+                                @foreach ($vehicleCategories as $category)
+                                    <option value="{{ $category->id }}" {{ old('vehicle_category_id', isset($vehicle) ? $vehicle->vehicle_category_id : '') == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}
                                     </option>
                                 @endforeach
                             </select>
                         </div>
-
                         <!-- Vehicle Number -->
                         <div>
                             <x-label for="number" :value="__('Number')" />

@@ -11,7 +11,7 @@ class UpdateVehicleRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,17 @@ class UpdateVehicleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+
+            'vehicle_category_id' => 'required|exists:vehicle_categories,id',
+            'number' => 'required|string|max:255',
+            'engine_number' => 'required|string|max:255',
+            'chassis_number' => 'required|string|max:255',
+            'owner_name' => 'required|string|max:255',
+            'owner_nic' => 'required|string|max:255',
+            'owner_license' => 'required|string|max:255',
+            'owner_address' => 'required|string|max:255',
+            'owner_mobile' => 'required|string|max:255',
+            'status' => 'nullable|boolean',
         ];
     }
 }
