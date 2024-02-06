@@ -65,7 +65,13 @@ class VehicleController extends Controller
     public function edit(Vehicle $vehicle)
     {
         $vehicleCategories = VehicleCategory::all(); // Get all vehicle categories
-    return view('vehicles.edit', compact('vehicle', 'vehicleCategories'));
+        // Adjust the view path to 'vehicle.form' assuming form.blade.php is directly inside the 'vehicle' folder
+        return view ('vehicle.form',[
+            'vehicle' => $vehicle,
+            'vehicleCategories' => $vehicleCategories
+
+        ]);
+
     }
 
     /**

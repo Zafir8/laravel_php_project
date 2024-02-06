@@ -82,6 +82,8 @@ class VehicleCategoryController extends Controller
      */
     public function destroy(VehicleCategory $vehicleCategory)
     {
-        //
+        $vehicleCategory->delete();
+
+        return redirect()->route('vehicle-categories.index');
     }
 }
