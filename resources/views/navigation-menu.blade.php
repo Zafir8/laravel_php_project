@@ -253,11 +253,6 @@
             <!-- Authentication Links -->
             <div>
                 @auth
-                <!-- Dashboard Link -->
-                <a href="{{ url('/dashboard') }}" class="inline-block text-sm px-4 py-2 leading-none text-white border-white hover:border-transparent hover:text-deep-blue mt-4 lg:mt-0">
-                    Dashboard
-                </a>
-
                 <!-- Dropdown for User Profile -->
                 <div class="ml-3 relative">
                     <x-dropdown align="right" width="48">
@@ -278,6 +273,11 @@
                         </x-slot>
 
                         <x-slot name="content">
+                            <!-- Dashboard Link -->
+                            <x-dropdown-link href="{{ url('/dashboard') }}">
+                                {{ __('Dashboard') }}
+                            </x-dropdown-link>
+
                             <!-- Account Management -->
                             <div class="block px-4 py-2 text-xs text-gray-400">
                                 {{ __('Manage Account') }}
@@ -287,10 +287,9 @@
                                 {{ __('Profile') }}
                             </x-dropdown-link>
 
-
+                            <!-- Manage Users -->
                             <div class="border-t border-gray-100"></div>
 
-                            <!-- Manage Users -->
                             <div class="block px-4 py-2 text-xs text-gray-400">
                                 {{ __('Manage Users') }}
                             </div>
@@ -328,11 +327,11 @@
                 @else
 
                 <!-- Log in and Register Links -->
-                <a href="{{ route('login') }}" class="inline-block text-sm px-4 py-2 leading-none text-white hover:text-deep-blue mt-4 lg:mt-0">
+                <a href="{{ route('login') }}" class="block mt-1 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
                     Log in
                 </a>
                 @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="inline-block text-sm px-4 py-2 leading-none border-white text-white hover:text-deep-blue mt-4 lg:mt-0">
+                    <a href="{{ route('register') }}" class="block mt-1 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
                         Register
                     </a>
                 @endif
