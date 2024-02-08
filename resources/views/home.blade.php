@@ -15,7 +15,7 @@
 </head>
 <body class="bg-white py-24 sm:py-32">
     {{-- give me the font style --}}
-    <h1 class="text-4xl font-bold text-sky-700 my-8 ml-5 ">ShiftMe</h1>
+    <h1 class="text-4xl font-bold text-sky-700 my-8 ml-5 ">ShuttleGo</h1>
     <div class="flex flex-wrap md:flex-nowrap"> <!-- Use md:flex-nowrap to prevent wrap on medium devices and up -->
         <div class="w-full md:w-1/2"> <!-- Take up full width on small screens, half width on medium screens and up -->
             <img class="mx-auto md:mx-0" src="{{ asset('images/bus.png') }}" alt="Bus"> <!-- Center on small screens, align left on medium screens and up -->
@@ -23,7 +23,7 @@
         <div class="w-full md:w-1/2 flex justify-center md:justify-start items-center"> <!-- Center content on small screens, align left on medium screens and up -->
             <div class="text-center md:text-left"> <!-- Center text on small screens, align left on medium screens and up -->
                 <h2 class="text-2xl font-semibold ml-20 mx-auto md:mx-0 text-sky-700">Ride safe with ease!</h2>
-                <p class="my-2 ml-20 mx-auto md:mx-0">Book a ride with ShiftMe and get to school on time.</p>
+                <p class="my-2 ml-20 mx-auto md:mx-0">Book a ride with ShuttleGo and get to school on time.</p>
                 <br>
                 <button type="button" class=" mx-auto md:mx-0 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline ml-20">
                     Book a ride
@@ -125,9 +125,9 @@
                 <div class="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
                   <div class="rounded-2xl bg-gray-50 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16">
                     <div class="mx-auto max-w-xs px-8">
-                      <p class="text-base font-semibold text-gray-600">Pay once in every 30 date</p>
+                      <p class="text-base font-semibold text-gray-600">Pay once in every 30 days</p>
                       <p class="mt-6 flex items-baseline justify-center gap-x-2">
-                        <span class="text-5xl font-bold tracking-tight text-gray-900">12500</span>
+                        <span class="text-5xl font-bold tracking-tight text-gray-900">10,000</span>
                         <span class="text-sm font-semibold leading-6 tracking-wide text-gray-600">LKR</span>
                       </p>
                       <a href="#" class="mt-10 block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Buy now</a>
@@ -138,6 +138,36 @@
             </div>
           </div>
     </section>
+
+    <section class="bg-gray-100 py-12">
+        <div class="container mx-auto px-4">
+            <!-- App Store and Google Play buttons -->
+            <div class="text-center mb-6">
+                <h2 class="text-3xl font-bold mb-4">Download the App</h2>
+                <p class="mb-8">Available on iOS and Android.</p>
+                <div class="inline-flex gap-4 justify-center">
+                    <a href="#link-to-apple-app-store" class="bg-black text-white font-bold py-2 px-4 rounded-lg hover:bg-gray-900 transition-colors">
+                        <i class="fab fa-apple"></i> App Store
+                    </a>
+                    <a href="#link-to-google-play-store" class="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">
+                        <i class="fab fa-google-play"></i> Google Play
+                    </a>
+                </div>
+            </div>
+
+            <!-- App Screenshots -->
+            <div class="mt-8">
+                <h3 class="text-xl font-semibold mb-4 text-center">App Screenshots</h3>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <img src="{{asset('images/Home.png')}}" alt="App Screenshot 1" class="rounded-lg shadow-lg w-1/4">
+                    <img src="{{asset('images/Ride.png')}}" alt="App Screenshot 2" class="rounded-lg shadow-lg w-1/4">
+                    <img src="{{asset('images/window.png')}}" alt="App Screenshot 3" class="rounded-lg shadow-lg w-1/4">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
 
     <section>
         <div class="bg-indigo-50 p-8">
@@ -159,7 +189,7 @@
 
     <footer class="bg-deep-blue text-white text-center p-4">
         <div class="container mx-auto">
-            <p>&copy; 2024 ShiftMe. All rights reserved.</p>
+            <p>&copy; 2024 ShuttleGo. All rights reserved.</p>
             <div class="flex justify-center space-x-4 mt-2">
                 <a href="#privacy-policy" class="hover:text-gray-300">Privacy Policy</a>
                 <a href="#terms-of-service" class="hover:text-gray-300">Terms of Service</a>

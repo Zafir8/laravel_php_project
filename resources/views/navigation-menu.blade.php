@@ -223,8 +223,8 @@
     <div class="flex items-center justify-between flex-wrap">
         <!-- Logo and Brand Name -->
         <div class="flex items-center flex-shrink-0 mr-6">
-            <img src="{{ asset('images/Shiftme logo.png') }}" alt="ShiftMe Logo" class="h-10">
-            <span class="font-semibold text-xl tracking-tight">ShiftMe</span>
+            <img src="{{ asset('images/Shuttlego.png')}}" alt="Shuttle Logo" class="h-10">
+            <span class="font-semibold text-xl tracking-tight">ShuttleGo</span>
         </div>
 
         <!-- Hamburger Menu Button (for smaller screens) -->
