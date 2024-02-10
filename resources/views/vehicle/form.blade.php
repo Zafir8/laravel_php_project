@@ -9,10 +9,9 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <form method="POST" action="{{ route('vehicles.store',['vehicle' => $vehicle,
-            'vehicleCategories' => $vehicleCategories]) }}" class="space-y-8 divide-y divide-gray-200">
+                    <form method="POST" action="{{ route('vehicles.store') }}" class="space-y-8 divide-y divide-gray-200">
                         @csrf
-                        @method('PUT')
+
                         <!-- Vehicle Category ID -->
                         <div>
                             <x-label for="vehicle_category_id" :value="__('Vehicle Category')" />
@@ -27,56 +26,55 @@
                         <!-- Vehicle Number -->
                         <div>
                             <x-label for="number" :value="__('Number')" />
-                            <x-input id="number" type="text" name="number" value="{{$vehicle->number}}" required class="mt-1 block w-full" />
+                            <x-input id="number" type="text" name="number" :value="old('number')" required class="mt-1 block w-full" />
                         </div>
 
                         <!-- Engine Number -->
                         <div>
                             <x-label for="engine_number" :value="__('Engine Number')" />
-                            <x-input id="engine_number" type="text" name="engine_number" value="{{$vehicle->engine_number}}" class="mt-1 block w-full" />
+                            <x-input id="engine_number" type="text" name="engine_number" :value="old('engine_number')" class="mt-1 block w-full" />
                         </div>
 
                         <!-- Chassis Number -->
                         <div>
                             <x-label for="chassis_number" :value="__('Chassis Number')" />
-                            <x-input id="chassis_number" type="text" name="chassis_number" value="{{$vehicle->chassis_number}}" class="mt-1 block w-full" />
+                            <x-input id="chassis_number" type="text" name="chassis_number" :value="old('chassis_number')" class="mt-1 block w-full" />
                         </div>
 
                         <!-- Owner Name -->
                         <div>
                             <x-label for="owner_name" :value="__('Owner Name')" />
-                            <x-input id="owner_name" type="text" name="owner_name" value="{{$vehicle->owner_name}}" required class="mt-1 block w-full" />
+                            <x-input id="owner_name" type="text" name="owner_name" :value="old('owner_name')" required class="mt-1 block w-full" />
                         </div>
 
                         <!-- Owner NIC -->
                         <div>
                             <x-label for="owner_nic" :value="__('Owner NIC')" />
-                            <x-input id="owner_nic" type="text" name="owner_nic" value="{{$vehicle->owner_nic}}" class="mt-1 block w-full" />
+                            <x-input id="owner_nic" type="text" name="owner_nic" :value="old('owner_nic')" class="mt-1 block w-full" />
                         </div>
 
                         <!-- Owner License -->
                         <div>
                             <x-label for="owner_license" :value="__('Owner License')" />
-                            <x-input id="owner_license" type="text" name="owner_license" value="{{$vehicle->owner_license}}" class="mt-1 block w-full" />
+                            <x-input id="owner_license" type="text" name="owner_license" :value="old('owner_license')" class="mt-1 block w-full" />
                         </div>
 
                         <!-- Owner Address -->
                         <div>
                             <x-label for="owner_address" :value="__('Owner Address')" />
-                            <x-input id="owner_address" type="text" name="owner_address" value="{{$vehicle->owner_address}}" class="mt-1 block w-full" />
+                            <x-input id="owner_address" type="text" name="owner_address" :value="old('owner_address')" class="mt-1 block w-full" />
                         </div>
 
                         <!-- Owner Mobile -->
                         <div>
                             <x-label for="owner_mobile" :value="__('Owner Mobile')" />
-                            <x-input id="owner_mobile" type="text" name="owner_mobile" value="{{$vehicle->owner_mobile}}" class="mt-1 block w-full" />
+                            <x-input id="owner_mobile" type="text" name="owner_mobile" :value="old('owner_mobile')" class="mt-1 block w-full" />
                         </div>
 
                         <!-- Vehicle Status -->
                         <div>
                             <x-label for="status" :value="__('Vehicle Status')" />
                             <select id="status" name="status" required class="mt-1 block w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                <option value="{{$vehicle->status}}">Select Status</option>
                                 <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Active</option>
                                 <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
                                 <option value="under_maintenance" {{ old('status') == 'under_maintenance' ? 'selected' : '' }}>Under Maintenance</option>
