@@ -33,6 +33,9 @@ Route::middleware([
     Route::resource('vehicle-categories', \App\Http\Controllers\VehicleCategoryController::class);
     Route::get('/vehicles/create', [VehicleController::class, 'create'])->name('vehicle.create');
     Route::post('/vehicles', [VehicleController::class, 'store'])->name('vehicle.store');
+    Route::post('/vehicles', [VehicleController::class, 'store'])->name('vehicle.store');
+
+
 
     Route::resource('vehicles', \App\Http\Controllers\VehicleController::class);
     Route::resource('users', \App\Http\Controllers\UserController::class);

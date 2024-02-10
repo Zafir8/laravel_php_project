@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateVehicleRequest;
 use App\Models\VehicleCategory;
 use Illuminate\Http\Request;
 
+
 class VehicleController extends Controller
 {
     /**
@@ -25,10 +26,11 @@ class VehicleController extends Controller
      */
     public function create()
     {
-return view('vehicle.form', [
+        return view('vehicle.form', [
             'vehicle' => new Vehicle(),
             'vehicleCategories' => VehicleCategory::all()
         ]);
+
 
 }
 
@@ -38,10 +40,6 @@ return view('vehicle.form', [
      */
     public function store(Request $request)
     {
-            // Dump the request data and stop further execution
-            dd($request->all());
-
-
         Vehicle::create([
             'vehicle_category_id' => $request->get('vehicle_category_id'),
             'number' => $request->get('number'),
@@ -75,11 +73,7 @@ return view('vehicle.form', [
     {
         $vehicleCategories = VehicleCategory::all(); // Get all vehicle categories
         // Adjust the view path to 'vehicle.form' assuming form.blade.php is directly inside the 'vehicle' folder
-        return view ('vehicle.form',[
-            'vehicle' => $vehicle,
-            'vehicleCategories' => $vehicleCategories
-
-        ]);
+        return view('vehicle.form', compact('vehicle', 'vehicleCategories'));
 
     }
 
