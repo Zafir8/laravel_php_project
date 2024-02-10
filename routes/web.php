@@ -33,11 +33,11 @@ Route::middleware([
     Route::resource('vehicle-categories', \App\Http\Controllers\VehicleCategoryController::class);
     Route::get('/vehicles/create', [VehicleController::class, 'create'])->name('vehicle.create');
     Route::post('/vehicles', [VehicleController::class, 'store'])->name('vehicle.store');
-    Route::post('/vehicles', [VehicleController::class, 'store'])->name('vehicle.store');
-    Route::get('/vehicles', [VehicleController::class, 'index'])->name('vehicle.index');
-    Route::get('/vehicles/{vehicle}', [VehicleController::class, 'show'])->name('vehicle.show');
     Route::get('/vehicles/{vehicle}/edit', [VehicleController::class, 'edit'])->name('vehicle.edit');
     Route::put('/vehicles/{vehicle}', [VehicleController::class, 'update'])->name('vehicle.update');
+    Route::delete('/vehicles/{vehicle}', [VehicleController::class, 'destroy'])->name('vehicle.destroy');
+
+
 
 
 
