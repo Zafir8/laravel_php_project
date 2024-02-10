@@ -33,18 +33,13 @@ Route::middleware([
     Route::resource('vehicle-categories', \App\Http\Controllers\VehicleCategoryController::class);
     Route::get('/vehicles/create', [VehicleController::class, 'create'])->name('vehicle.create');
     Route::post('/vehicles', [VehicleController::class, 'store'])->name('vehicle.store');
-<<<<<<< HEAD
-    Route::get('/vehicles/{vehicle}/edit', [VehicleController::class, 'edit'])->name('vehicle.edit');
-    Route::put('/vehicles/{vehicle}', [VehicleController::class, 'update'])->name('vehicle.update');
-    Route::delete('/vehicles/{vehicle}', [VehicleController::class, 'destroy'])->name('vehicle.destroy');
 
 
 
 
 
 
-=======
->>>>>>> parent of 92fa057 ( add crud)
+
 
     Route::resource('vehicles', \App\Http\Controllers\VehicleController::class);
     Route::resource('users', \App\Http\Controllers\UserController::class);
