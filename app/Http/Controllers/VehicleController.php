@@ -6,6 +6,7 @@ use App\Models\Vehicle;
 use App\Http\Requests\StoreVehicleRequest;
 use App\Http\Requests\UpdateVehicleRequest;
 use App\Models\VehicleCategory;
+use Illuminate\Http\Request;
 
 class VehicleController extends Controller
 {
@@ -24,12 +25,9 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        $vehicleCategories = VehicleCategory::all(); // Get all vehicle categories
-
-        return view('vehicle.form', [
+return view('vehicle.form', [
             'vehicle' => new Vehicle(),
-            'vehicleCategories' => $vehicleCategories
-
+            'vehicleCategories' => VehicleCategory::all()
         ]);
 
 }
@@ -38,7 +36,7 @@ class VehicleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreVehicleRequest $request)
+    public function store(Request $request)
     {
             // Dump the request data and stop further execution
             dd($request->all());
