@@ -61,7 +61,7 @@ class VehicleSeeder extends Seeder
 
         foreach ($vehicles as $vehicle) {
             \App\Models\Vehicle::create([
-                'number' => $vehicle,
+                'number' => $vehicle['number'],
                 'status' => $vehicle['status'],
                 'engine_number' => $vehicle['engine_number'],
                 'chassis_number' => $vehicle['chassis_number'],

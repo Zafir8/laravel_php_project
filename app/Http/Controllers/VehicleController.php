@@ -40,7 +40,9 @@ class VehicleController extends Controller
      */
     public function store(StoreVehicleRequest $request)
     {
-        dump($request->all());
+            // Dump the request data and stop further execution
+            dd($request->all());
+
 
         Vehicle::create([
             'vehicle_category_id' => $request->get('vehicle_category_id'),
