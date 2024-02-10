@@ -8,7 +8,6 @@ use App\Http\Requests\UpdateVehicleRequest;
 use App\Models\VehicleCategory;
 use Illuminate\Http\Request;
 
-
 class VehicleController extends Controller
 {
     /**
@@ -16,7 +15,8 @@ class VehicleController extends Controller
      */
     public function index()
     {
-       $vehicles = Vehicle::paginate(10); // Adjust the number as needed
+        $vehicles = Vehicle::paginate(10); // Adjust the number as needed
+
         return view('vehicle.index', compact('vehicles'));
     }
 
@@ -25,11 +25,10 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        return view('vehicle.form', [
+return view('vehicle.form', [
             'vehicle' => new Vehicle(),
             'vehicleCategories' => VehicleCategory::all()
         ]);
-
 
 }
 
@@ -39,6 +38,13 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
+<<<<<<< HEAD
+=======
+            // Dump the request data and stop further execution
+
+
+
+>>>>>>> f44b8c35abf142242747bc6a70fb0228b4edb1dd
         Vehicle::create($request->all());
 
 
@@ -59,10 +65,20 @@ class VehicleController extends Controller
      */
     public function edit(Vehicle $vehicle)
     {
+<<<<<<< HEAD
         $vehicleCategories = VehicleCategory::all();
         return view ('vehicle.form',[
             'vehicle' => $vehicle,
             'vehicleCategories' => $vehicleCategories
+=======
+        $vehicleCategories = VehicleCategory::all(); // Get all vehicle categories
+        // Adjust the view path to 'vehicle.form' assuming form.blade.php is directly inside the 'vehicle' folder
+        return view ('vehicle.edit',[
+            'vehicle' => $vehicle,
+            'vehicleCategories' => $vehicleCategories
+
+        ]);
+>>>>>>> f44b8c35abf142242747bc6a70fb0228b4edb1dd
 
         ]);
     }
