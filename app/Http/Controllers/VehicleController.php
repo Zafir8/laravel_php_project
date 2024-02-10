@@ -23,10 +23,15 @@ class VehicleController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-{
-    $vehicleCategories = VehicleCategory::all(); // Get all vehicle categories
-    // Adjust the view path to 'vehicle.form' assuming form.blade.php is directly inside the 'vehicle' folder
-    return view('vehicle.form', compact('vehicleCategories'));
+    {
+        $vehicleCategories = VehicleCategory::all(); // Get all vehicle categories
+
+        return view('vehicle.form', [
+            'vehicle' => new Vehicle(),
+            'vehicleCategories' => $vehicleCategories
+
+        ]);
+
 }
 
 
@@ -35,6 +40,8 @@ class VehicleController extends Controller
      */
     public function store(StoreVehicleRequest $request)
     {
+        dump($request->all());
+
         Vehicle::create([
             'vehicle_category_id' => $request->get('vehicle_category_id'),
             'number' => $request->get('number'),
@@ -47,6 +54,8 @@ class VehicleController extends Controller
             'owner_mobile' => $request->get('owner_mobile'),
             'status' => $request->get('status', 0),
         ]);
+
+
 
         return redirect()->route('vehicles.index');
     }
