@@ -88,18 +88,7 @@ return view('vehicle.form', [
      */
     public function update(Request $request, Vehicle $vehicle)
     {
-        $vehicle->update([
-            'vehicle_category_id' => $request->get('vehicle_category_id'),
-            'number' => $request->get('number'),
-            'engine_number' => $request->get('engine_number'),
-            'chassis_number' => $request->get('chassis_number'),
-            'owner_name' => $request->get('owner_name'),
-            'owner_nic' => $request->get('owner_nic'),
-            'owner_license' => $request->get('owner_license'),
-            'owner_address' => $request->get('owner_address'),
-            'owner_mobile' => $request->get('owner_mobile'),
-            'status' => $request->get('status', 0),
-        ]);
+        $vehicle->update($request->all());
 
         return redirect()->route('vehicles.index');
     }
