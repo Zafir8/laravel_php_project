@@ -8,7 +8,6 @@ use App\Http\Requests\UpdateVehicleRequest;
 use App\Models\VehicleCategory;
 use Illuminate\Http\Request;
 
-
 class VehicleController extends Controller
 {
     /**
@@ -16,7 +15,8 @@ class VehicleController extends Controller
      */
     public function index()
     {
-       $vehicles = Vehicle::paginate(10); // Adjust the number as needed
+        $vehicles = Vehicle::paginate(10); // Adjust the number as needed
+
         return view('vehicle.index', compact('vehicles'));
     }
 
@@ -25,11 +25,10 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        return view('vehicle.form', [
+return view('vehicle.form', [
             'vehicle' => new Vehicle(),
             'vehicleCategories' => VehicleCategory::all()
         ]);
-
 
 }
 
@@ -39,6 +38,10 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
+            // Dump the request data and stop further execution
+            dd($request->all());
+
+
         Vehicle::create([
             'vehicle_category_id' => $request->get('vehicle_category_id'),
             'number' => $request->get('number'),
@@ -70,10 +73,12 @@ class VehicleController extends Controller
      */
     public function edit(Vehicle $vehicle)
     {
-
-        return view('vehicle.form', [
+        $vehicleCategories = VehicleCategory::all(); // Get all vehicle categories
+        // Adjust the view path to 'vehicle.form' assuming form.blade.php is directly inside the 'vehicle' folder
+        return view ('vehicle.edit',[
             'vehicle' => $vehicle,
-            'vehicleCategories' => VehicleCategory::all()
+            'vehicleCategories' => $vehicleCategories
+
         ]);
 
     }
@@ -81,7 +86,7 @@ class VehicleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateVehicleRequest $request, Vehicle $vehicle)
+    public function update(Request $request, Vehicle $vehicle)
     {
         $vehicle->update([
             'vehicle_category_id' => $request->get('vehicle_category_id'),
