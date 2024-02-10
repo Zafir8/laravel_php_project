@@ -25,7 +25,7 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        return view('vehicle.form', [
+return view('vehicle.form', [
             'vehicle' => new Vehicle(),
             'vehicleCategories' => VehicleCategory::all()
         ]);
@@ -38,7 +38,18 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
-        Vehicle::create($request->all());
+        Vehicle::create([
+            'vehicle_category_id' => $request->get('vehicle_category_id'),
+            'number' => $request->get('number'),
+            'engine_number' => $request->get('engine_number'),
+            'chassis_number' => $request->get('chassis_number'),
+            'owner_name' => $request->get('owner_name'),
+            'owner_nic' => $request->get('owner_nic'),
+            'owner_license' => $request->get('owner_license'),
+            'owner_address' => $request->get('owner_address'),
+            'owner_mobile' => $request->get('owner_mobile'),
+            'status' => $request->get('status', 0),
+        ]);
 
 
 
@@ -58,12 +69,10 @@ class VehicleController extends Controller
      */
     public function edit(Vehicle $vehicle)
     {
-        $vehicleCategories = VehicleCategory::all();
-        return view ('vehicle.form',[
-            'vehicle' => $vehicle,
-            'vehicleCategories' => $vehicleCategories
+        $vehicleCategories = VehicleCategory::all(); // Get all vehicle categories
+        // Adjust the view path to 'vehicle.form' assuming form.blade.php is directly inside the 'vehicle' folder
+        return view('vehicle.form', compact('vehicle', 'vehicleCategories'));
 
-        ]);
     }
 
     /**
