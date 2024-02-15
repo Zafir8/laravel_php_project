@@ -77,7 +77,7 @@
                             <select id="status" name="status" required class="mt-1 block w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                 <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Active</option>
                                 <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
-                                <option value="under_maintenance" {{ old('status') == 'under_maintenance' ? 'selected' : '' }}>Under Maintenance</option>
+                                <option value="under_maintanance" {{ old('status') == 'under_maintenance' ? 'selected' : '' }}>Under Maintenance</option>
                             </select>
                         </div>
 

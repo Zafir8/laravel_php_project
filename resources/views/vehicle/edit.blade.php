@@ -79,7 +79,7 @@
                                 <option value="{{$vehicle->status}}">Select Status</option>
                                 <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Active</option>
                                 <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
-                                <option value="under_maintenance" {{ old('status') == 'under_maintenance' ? 'selected' : '' }}>Under Maintenance</option>
+                                <option value="under_maintanance" {{ old('status') == 'under_maintenance' ? 'selected' : '' }}>Under Maintenance</option>
                             </select>
                         </div>
 
