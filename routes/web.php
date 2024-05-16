@@ -6,10 +6,11 @@ use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleCategoryController;
 use App\Http\Controllers\PlanController;
+use App\Http\Controllers\CheckoutController;
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [PlanController::class, 'home'])->name('home');
+Route::get('/checkout/{plan}', [CheckoutController::class, 'show'])->middleware('auth')->name('checkout.show');
+Route::post('/checkout/{plan}', [CheckoutController::class, 'processPayment'])->middleware('auth')->name('payment.process');
 
 Route::middleware([
     'auth:sanctum',
@@ -27,11 +28,6 @@ Route::middleware([
     });
 });
 
-
-Route::get('/', [PlanController::class, 'home'])->name('home');
-
 Route::post('/post-test', function (Request $request) {
     dd($request);
 });
-
-
