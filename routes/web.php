@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleCategoryController;
+use App\Http\Controllers\PlanController;
 
 Route::get('/', function () {
     return view('home');
@@ -25,6 +26,9 @@ Route::middleware([
         Route::resource('user', UserController::class);
     });
 });
+
+
+Route::get('/', [PlanController::class, 'home'])->name('home');
 
 Route::post('/post-test', function (Request $request) {
     dd($request);

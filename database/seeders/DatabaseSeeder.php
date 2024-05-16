@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             ScheduleSeeder::class,
             BookingSeeder::class,
             VehicleSeeder::class,
+            PlanSeeder::class,
         ]);
     }
 }
