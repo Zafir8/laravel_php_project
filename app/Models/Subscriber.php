@@ -5,7 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Subscriber extends Model {
+class Subscriber extends Model
+{
     use HasFactory;
 
     protected $fillable = [
@@ -18,11 +19,20 @@ class Subscriber extends Model {
         'renewal_date',
     ];
 
-    public function user() {
+    protected $casts = [
+        'purchase_date' => 'datetime',
+        'subscription_date' => 'datetime',
+        'renewal_date' => 'datetime',
+    ];
+
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function plan() {
+    public function plan()
+    {
         return $this->belongsTo(Plan::class);
     }
 }
+
