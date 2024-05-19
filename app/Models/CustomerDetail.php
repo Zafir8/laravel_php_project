@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+namespace App\Models;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Subscriber extends Model
+class CustomerDetail extends Model
 {
     use HasFactory;
 
@@ -17,6 +19,8 @@ class Subscriber extends Model
         'purchase_date',
         'subscription_date',
         'renewal_date',
+        'user_name',
+        'user_email',
     ];
 
     protected $casts = [

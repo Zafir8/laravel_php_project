@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\VehicleController;
@@ -7,7 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleCategoryController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\DashboardController; // Ensure to include this line
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', [PlanController::class, 'home'])->name('home');
 Route::get('/checkout/{plan}', [CheckoutController::class, 'show'])->middleware('auth')->name('checkout.show');
