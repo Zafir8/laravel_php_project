@@ -157,6 +157,15 @@
             autocomplete.bindTo('bounds', map);
 
             autocomplete.addListener('place_changed', onPlaceChanged);
+
+            google.maps.event.addListener(marker, 'dragend', function(event) {
+                updateLocation(event.latLng);
+            });
+
+            google.maps.event.addListener(map, 'click', function(event) {
+                placeMarker(event.latLng);
+                updateLocation(event.latLng);
+            });
         }
 
         function onPlaceChanged() {
@@ -167,8 +176,44 @@
             } else {
                 map.panTo(place.geometry.location);
                 map.setZoom(15);
-                marker.setPosition(place.geometry.location);
-                document.getElementById("location").value = place.formatted_address;
+                placeMarker(place.geometry.location);
+                updateLocation(place.geometry.location, place.formatted_address);
+            }
+        }
+
+        function placeMarker(location) {
+            if (marker) {
+                marker.setPosition(location);
+            } else {
+                marker = new google.maps.Marker({
+                    position: location,
+                    map: map,
+                    draggable: true
+                });
+            }
+            map.setCenter(location);
+        }
+
+        function updateLocation(location, address = null) {
+            if (!address) {
+                const geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ location: location }, (results, status) => {
+                    if (status === "OK") {
+                        if (results[0]) {
+                            document.getElementById('location').value = results[0].formatted_address;
+                            document.getElementById('autocomplete').value = results[0].formatted_address;
+                        } else {
+                            document.getElementById('location').value = location.lat() + ', ' + location.lng();
+                            document.getElementById('autocomplete').value = location.lat() + ', ' + location.lng();
+                        }
+                    } else {
+                        document.getElementById('location').value = location.lat() + ', ' + location.lng();
+                        document.getElementById('autocomplete').value = location.lat() + ', ' + location.lng();
+                    }
+                });
+            } else {
+                document.getElementById('location').value = address;
+                document.getElementById('autocomplete').value = address;
             }
         }
 
