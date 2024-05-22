@@ -25,9 +25,9 @@
                 <h2 class="text-2xl font-semibold ml-20 mx-auto md:mx-0 text-sky-700">Ride safe with ease!</h2>
                 <p class="my-2 ml-20 mx-auto md:mx-0">Book a ride with ShuttleGo and get to school on time.</p>
                 <br>
-                <button type="button" class=" mx-auto md:mx-0 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline ml-20">
+                <a href="{{ route('book.ride') }}" class="mx-auto md:mx-0 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline ml-20">
                     Book a ride
-                </button>
+                </a>
             </div>
         </div>
     </div>

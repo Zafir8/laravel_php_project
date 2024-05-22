@@ -9,14 +9,15 @@ class VehicleCategory extends Model
 {
     use HasFactory;
 
-    // add all the fields to the fillable
-    // creating enum for the vehicle type
-    // 1 = bus
-    // 2 = van
-
     protected $fillable = [
         'name',
         'description',
         'status',
     ];
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
 }
+

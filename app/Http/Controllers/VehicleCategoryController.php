@@ -8,21 +8,15 @@ use App\Http\Requests\UpdateVehicleCategoryRequest;
 
 class VehicleCategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $vehicleCategories = VehicleCategory::paginate(10); // Adjust the number as needed
+        $vehicleCategories = VehicleCategory::paginate(10);
 
         return view('vehicle-categories.index', [
             'categories' => $vehicleCategories
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('vehicle-categories.form', [
@@ -30,31 +24,18 @@ class VehicleCategoryController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreVehicleCategoryRequest $request)
     {
-        VehicleCategory::create([
-            'name' => $request->get('name'),
-            'description' => $request->get('description'),
-            'status' => $request->get('status', 0),
-        ]);
+        VehicleCategory::create($request->validated());
 
-        return redirect()->route('vehicle-categories.index');
+        return redirect()->route('vehicle-categories.index')->with('success', 'Vehicle category created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(VehicleCategory $vehicleCategory)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(VehicleCategory $vehicleCategory)
     {
         return view('vehicle-categories.form', [
@@ -62,28 +43,18 @@ class VehicleCategoryController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateVehicleCategoryRequest $request, VehicleCategory $vehicleCategory)
     {
+        $vehicleCategory->update($request->validated());
 
-        $vehicleCategory->update([
-            'name' => $request->get('name'),
-            'description' => $request->get('description'),
-            'status' => $request->get('status', 0),
-        ]);
-
-        return redirect()->route('vehicle-categories.index');
+        return redirect()->route('vehicle-categories.index')->with('success', 'Vehicle category updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(VehicleCategory $vehicleCategory)
     {
         $vehicleCategory->delete();
 
-        return redirect()->route('vehicle-categories.index');
+        return redirect()->route('vehicle-categories.index')->with('success', 'Vehicle category deleted successfully.');
     }
 }
+// Compare this snippet from project/app/Http/Controllers/BookingController.php:
