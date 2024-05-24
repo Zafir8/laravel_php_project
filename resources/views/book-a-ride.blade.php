@@ -1,50 +1,43 @@
 <x-app-layout>
-    <div class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <h2 class="text-4xl font-bold mb-6 text-center text-indigo-600">Book a Ride</h2>
+    <div class="relative h-screen">
+        <div id="map" class="absolute inset-0 z-0"></div>
 
-        @if (session('success'))
-            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
-                <strong class="font-bold">Success!</strong>
-                <span class="block sm:inline">{{ session('success') }}</span>
-                <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-                    <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                        <title>Close</title>
-                        <path d="M14.348 14.849a1 1 0 11-1.414-1.414L10 8.586 7.066 11.12a1 1 0 11-1.414-1.414l3-3a1 1 0 011.414 0l3 3a 1 1 0 010 1.414l-3 3a1 1 0 01-1.414 0L7.12 10.86l2.535 2.536a1 1 0 001.414 0l3.278 3.278z"/>
-                    </svg>
-                </span>
+        <div class="absolute top-0 left-0 right-0 z-10 p-4">
+            <div class="flex justify-center items-center space-x-4">
+                <input type="text" id="autocomplete" class="p-2 w-1/2 bg-white bg-opacity-75 rounded-md shadow-sm" placeholder="Enter a location" required>
+                <input type="hidden" id="location" name="location">
             </div>
-        @endif
+        </div>
 
-        <div class="bg-white shadow-lg rounded-lg p-6">
-            <form method="POST" action="{{ route('book.ride.submit') }}">
-                @csrf
-
-                <div class="mb-4">
-                    <label for="autocomplete" class="block text-sm font-medium text-gray-700">Location</label>
-                    <input type="text" id="autocomplete" class="mt-1 p-2 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="Enter a location" required>
-                    <input type="hidden" id="location" name="location">
-                </div>
-
-                <div class="mb-4">
-                    <label for="vehicle" class="block text-sm font-medium text-gray-700">Vehicle Type</label>
-                    <select id="vehicle" name="vehicle_category_id" class="mt-1 block w-full p-2 bg-white border border-gray-300 rounded-md shadow-sm sm:text-sm" required>
-                        <option value="" disabled selected>Select a vehicle type</option>
-                        @foreach($vehicleCategories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div id="price" class="mb-4 text-lg font-bold text-indigo-600"></div>
-
-                <div id="map" class="w-full h-64 mb-4 rounded-lg shadow-md"></div>
-
-                <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline w-full">
+        <div class="absolute bottom-0 left-0 right-0 z-10 p-4">
+            <div class="flex justify-center items-center space-x-4 mb-4">
+                @foreach($vehicleCategories as $category)
+                    <div class="cursor-pointer vehicle-card flex-1 p-2 border border-gray-300 rounded-lg shadow-sm text-center bg-white bg-opacity-75 hover:bg-gray-100" data-id="{{ $category->id }}" data-price="{{ $category->id == 1 ? 1000 : 800 }}">
+                        <i class="fas {{ $category->id == 1 ? 'fa-bus' : 'fa-shuttle-van' }} mx-auto mb-2 h-8 w-8 text-indigo-600"></i>
+                        <p class="text-xs font-semibold">{{ $category->name }}</p>
+                    </div>
+                @endforeach
+                <input type="hidden" id="vehicle_category_id" name="vehicle_category_id" required>
+            </div>
+            <div class="text-center mb-4">
+                <div id="price" class="text-lg font-bold text-indigo-600"></div>
+            </div>
+            <div class="flex justify-center items-center">
+                <button id="bookRide" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline">
                     Book Ride
                 </button>
-            </form>
+            </div>
         </div>
     </div>
+
+    <form id="rideForm" method="POST" action="{{ route('book.ride.submit') }}" class="hidden">
+        @csrf
+        <input type="hidden" id="locationHidden" name="location">
+        <input type="hidden" id="vehicleHidden" name="vehicle_category_id">
+    </form>
+
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/J+dsR3f3B5d5KZ5pO8sk6tpFHRFmk3tEmD1pT3h8/pEnVnDFx7nlYH1od/QUFIoXZ57/AQyig==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_maps.api_key') }}&libraries=places&callback=initMap" async defer></script>
     <script>
@@ -217,23 +210,29 @@
             }
         }
 
-        document.getElementById('vehicle').addEventListener('change', function() {
-            const selectedOption = this.options[this.selectedIndex].text;
-            let price = 0;
+        document.querySelectorAll('.vehicle-card').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('.vehicle-card').forEach(c => c.classList.remove('bg-gray-200', 'border-indigo-600'));
+                this.classList.add('bg-gray-200', 'border-indigo-600');
 
-            switch (selectedOption) {
-                case 'Bus':
-                    price = 1000;
-                    break;
-                case 'Van':
-                    price = 800;
-                    break;
-                default:
-                    price = 500;
-                    break;
+                const vehicleId = this.getAttribute('data-id');
+                const price = this.getAttribute('data-price');
+
+                document.getElementById('vehicle_category_id').value = vehicleId;
+                document.getElementById('price').innerText = 'Price: ' + price + ' LKR';
+            });
+        });
+
+        document.getElementById('bookRide').addEventListener('click', function() {
+            document.getElementById('locationHidden').value = document.getElementById('location').value;
+            document.getElementById('vehicleHidden').value = document.getElementById('vehicle_category_id').value;
+            document.getElementById('rideForm').submit();
+        });
+
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+                initMap();
             }
-
-            document.getElementById('price').innerText = 'Price: ' + price + ' LKR';
         });
     </script>
 </x-app-layout>
