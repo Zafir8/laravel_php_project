@@ -29,12 +29,21 @@
                     <x-input id="password_confirmation" class="block w-full mt-1" type="password" name="password_confirmation" required autocomplete="new-password" />
                 </div>
 
+                <div class="mb-4">
+                    <x-label for="role" value="{{ __('Role') }}" />
+                    <select id="role" name="role" class="block w-full mt-1" required>
+                        <option value="">{{ __('Select Role') }}</option>
+                        <option value="2">{{ __('Parent') }}</option>
+                        <option value="3">{{ __('Student') }}</option>
+                        <option value="4">{{ __('Driver') }}</option>
+                    </select>
+                </div>
+
                 @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                     <div class="mb-4">
                         <x-label for="terms">
                             <div class="flex items-center">
                                 <x-checkbox name="terms" id="terms" required />
-
                                 <div class="ms-2">
                                     {!! __('I agree to the :terms_of_service and :privacy_policy', [
                                             'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">'.__('Terms of Service').'</a>',

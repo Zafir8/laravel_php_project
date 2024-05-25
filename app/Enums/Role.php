@@ -3,10 +3,8 @@
 namespace App\Enums;
 
 enum Role: int {
-   case Admin = 1;
-   case parent = 2;
-   case student = 3;
-   case driver = 4;
-
-
+    case Admin = 1;
+    case ParentRole = 2;
+    case Student = 3;
+    case Driver = 4;
 }

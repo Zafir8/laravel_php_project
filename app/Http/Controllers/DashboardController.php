@@ -25,8 +25,17 @@ class DashboardController extends Controller
         } else {
             $subscriptions = Subscriber::where('user_id', $user->id)->with('plan')->get();
             $upcomingRides = Booking::where('user_id', $user->id)->where('date', '>=', now())->with('vehicle')->get();
-            return view('dashboard', compact('subscriptions', 'upcomingRides'));
+
+            if ($user->role === Role::ParentRole) {
+                return view('dashboards.parent', compact('subscriptions', 'upcomingRides'));
+            } elseif ($user->role === Role::Student) {
+                return view('dashboards.student', compact('subscriptions', 'upcomingRides'));
+            } elseif ($user->role === Role::Driver) {
+                $assignedRides = Booking::where('vehicle_id', $user->id)->where('date', '>=', now())->with('vehicle')->get();
+                return view('dashboards.driver', compact('subscriptions', 'assignedRides'));
+            } else {
+                return view('dashboard', compact('subscriptions', 'upcomingRides'));
+            }
         }
     }
 }
-
