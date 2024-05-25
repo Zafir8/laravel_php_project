@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\PayPalController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleCategoryController;
@@ -12,12 +12,19 @@ use App\Http\Controllers\BookingController;
 
 // Home and Checkout Routes
 Route::get('/', [PlanController::class, 'home'])->name('home');
-Route::get('/checkout/{plan}', [CheckoutController::class, 'show'])->middleware('auth')->name('checkout.show');
-Route::post('/checkout/{plan}', [CheckoutController::class, 'processPayment'])->middleware('auth')->name('payment.process');
+Route::get('checkout/{plan}', [CheckoutController::class, 'show'])->name('checkout.show') ->middleware('auth');
+Route::post('payment/process/{plan}', [CheckoutController::class, 'processPayment'])->name('payment.process') ->middleware('auth');
+Route::get('payment/success', [CheckoutController::class, 'success'])->name('payment.success') ->middleware('auth');
+Route::get('payment/cancel', [CheckoutController::class, 'cancel'])->name('payment.cancel') ->middleware('auth');
 
 // Book a Ride Routes
 Route::get('/book-a-ride', [BookingController::class, 'show'])->middleware('auth')->name('book.ride');
 Route::post('/book-a-ride', [BookingController::class, 'bookRide'])->middleware('auth')->name('book.ride.submit');
+
+// PayPal Routes
+Route::post('paypal/create-order/{plan}', [PayPalController::class, 'createOrder'])->name('paypal.createOrder');
+Route::get('paypal/success', [PayPalController::class, 'success'])->name('paypal.success');
+Route::get('paypal/cancel', [PayPalController::class, 'cancel'])->name('paypal.cancel');
 
 // Authenticated Routes
 Route::middleware([
@@ -35,7 +42,4 @@ Route::middleware([
     });
 });
 
-// Test Route
-Route::post('/post-test', function (Request $request) {
-    dd($request);
-});
+
