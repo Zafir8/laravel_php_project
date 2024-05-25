@@ -17,9 +17,12 @@ class CreatePaymentsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('plan_id');
-            $table->string('order_id');
-            $table->string('status');
+            $table->string('card_number');
+            $table->string('expiration_date');
+            $table->string('cvc');
             $table->decimal('amount', 8, 2);
+            $table->string('status');
+            $table->string('payment_method');
             $table->timestamps();
 
             // Foreign key constraints

@@ -12,18 +12,11 @@ class Payment extends Model
     protected $fillable = [
         'user_id',
         'plan_id',
-        'order_id',
-        'status',
+        'card_number',
+        'expiration_date',
+        'cvc',
         'amount',
+        'status',
+        'payment_method',
     ];
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function plan()
-    {
-        return $this->belongsTo(Plan::class);
-    }
 }
