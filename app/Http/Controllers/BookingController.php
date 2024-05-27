@@ -23,21 +23,25 @@ class BookingController extends Controller
      */
     public function bookRide(Request $request)
     {
+
         $request->validate([
             'location' => 'required|string',
             'vehicle_category_id' => 'required|integer|exists:vehicle_categories,id',
+            'pickup_location' => 'required|string',
+            'pickup_time' => 'required|date_format:Y-m-d\TH:i',
         ]);
 
         Booking::create([
             'user_id' => Auth::id(),
             'location' => $request->location,
             'vehicle_category_id' => $request->vehicle_category_id,
-            'amount' => 1000,
+            'pickup_location' => $request->pickup_location,
+            'pickup_time' => $request->pickup_time,
+            'amount' => 1000, // Assuming a fixed amount for demonstration
         ]);
 
         return redirect()->route('dashboard')->with('success', 'Ride booked successfully!');
     }
-
 
     /**
      * Calculate the price based on the vehicle category.

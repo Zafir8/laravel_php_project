@@ -22,6 +22,11 @@
             <div class="text-center mb-4">
                 <div id="price" class="text-lg font-bold text-indigo-600"></div>
             </div>
+            <div class="flex justify-center items-center space-x-4 mb-4">
+                <input type="text" id="pickup_location" class="p-2 w-1/2 bg-white bg-opacity-75 rounded-md shadow-sm" placeholder="Enter pick-up location" required>
+                <button id="currentLocationBtn" class="p-2 w-1/2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md">Use Current Location</button>
+                <input type="datetime-local" id="pickup_time" class="p-2 w-1/2 bg-white bg-opacity-75 rounded-md shadow-sm" required>
+            </div>
             <div class="flex justify-center items-center">
                 <button id="bookRide" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline">
                     Book Ride
@@ -34,6 +39,8 @@
         @csrf
         <input type="hidden" id="locationHidden" name="location">
         <input type="hidden" id="vehicleHidden" name="vehicle_category_id">
+        <input type="hidden" id="pickupLocationHidden" name="pickup_location">
+        <input type="hidden" id="pickupTimeHidden" name="pickup_time">
     </form>
 
     <!-- FontAwesome CDN -->
@@ -44,6 +51,7 @@
         let map;
         let marker;
         let autocomplete;
+        let pickupAutocomplete;
 
         function initMap() {
             const colombo = { lat: 6.9271, lng: 79.8612 };
@@ -148,8 +156,11 @@
 
             autocomplete = new google.maps.places.Autocomplete(document.getElementById("autocomplete"));
             autocomplete.bindTo('bounds', map);
-
             autocomplete.addListener('place_changed', onPlaceChanged);
+
+            pickupAutocomplete = new google.maps.places.Autocomplete(document.getElementById("pickup_location"));
+            pickupAutocomplete.bindTo('bounds', map);
+            pickupAutocomplete.addListener('place_changed', onPickupPlaceChanged);
 
             google.maps.event.addListener(marker, 'dragend', function(event) {
                 updateLocation(event.latLng);
@@ -171,6 +182,16 @@
                 map.setZoom(15);
                 placeMarker(place.geometry.location);
                 updateLocation(place.geometry.location, place.formatted_address);
+            }
+        }
+
+        function onPickupPlaceChanged() {
+            const place = pickupAutocomplete.getPlace();
+
+            if (!place.geometry) {
+                document.getElementById("pickup_location").placeholder = "Enter a pick-up location";
+            } else {
+                updatePickupLocation(place.geometry.location, place.formatted_address);
             }
         }
 
@@ -210,6 +231,59 @@
             }
         }
 
+        function updatePickupLocation(location, address = null) {
+            if (address) {
+                document.getElementById('pickup_location').value = address;
+                document.getElementById('pickupLocationHidden').value = address;
+            } else {
+                const geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ location: location }, (results, status) => {
+                    if (status === "OK") {
+                        if (results[0]) {
+                            document.getElementById('pickup_location').value = results[0].formatted_address;
+                            document.getElementById('pickupLocationHidden').value = results[0].formatted_address;
+                        } else {
+                            document.getElementById('pickup_location').value = location.lat() + ', ' + location.lng();
+                            document.getElementById('pickupLocationHidden').value = location.lat() + ', ' + location.lng();
+                        }
+                    } else {
+                        document.getElementById('pickup_location').value = location.lat() + ', ' + location.lng();
+                        document.getElementById('pickupLocationHidden').value = location.lat() + ', ' + location.lng();
+                    }
+                });
+            }
+        }
+
+        document.getElementById('currentLocationBtn').addEventListener('click', function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    const geocoder = new google.maps.Geocoder();
+                    geocoder.geocode({ location: pos }, (results, status) => {
+                        if (status === "OK") {
+                            if (results[0]) {
+                                document.getElementById('pickup_location').value = results[0].formatted_address;
+                                document.getElementById('pickupLocationHidden').value = results[0].formatted_address;
+                            } else {
+                                document.getElementById('pickup_location').value = pos.lat + ', ' + pos.lng;
+                                document.getElementById('pickupLocationHidden').value = pos.lat + ', ' + pos.lng;
+                            }
+                        } else {
+                            document.getElementById('pickup_location').value = pos.lat + ', ' + pos.lng;
+                            document.getElementById('pickupLocationHidden').value = pos.lat + ', ' + pos.lng;
+                        }
+                    });
+                }, function() {
+                    alert('Geolocation failed or is not supported by your browser.');
+                });
+            } else {
+                alert('Geolocation is not supported by your browser.');
+            }
+        });
+
         document.querySelectorAll('.vehicle-card').forEach(card => {
             card.addEventListener('click', function() {
                 document.querySelectorAll('.vehicle-card').forEach(c => c.classList.remove('bg-gray-200', 'border-indigo-600'));
@@ -226,6 +300,8 @@
         document.getElementById('bookRide').addEventListener('click', function() {
             document.getElementById('locationHidden').value = document.getElementById('location').value;
             document.getElementById('vehicleHidden').value = document.getElementById('vehicle_category_id').value;
+            document.getElementById('pickupLocationHidden').value = document.getElementById('pickup_location').value;
+            document.getElementById('pickupTimeHidden').value = document.getElementById('pickup_time').value;
             document.getElementById('rideForm').submit();
         });
 

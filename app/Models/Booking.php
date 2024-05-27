@@ -14,6 +14,8 @@ class Booking extends Model
         'location',
         'vehicle_category_id',
         'amount',
+        'pickup_location',
+        'pickup_time',
         'date',
     ];
 

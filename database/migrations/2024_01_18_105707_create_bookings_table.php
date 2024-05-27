@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,6 +20,8 @@ class CreateBookingsTable extends Migration
             $table->string('location');
             $table->unsignedBigInteger('vehicle_category_id');
             $table->decimal('amount', 8, 2);
+            $table->string('pickup_location');
+            $table->dateTime('pickup_time');
             $table->timestamps();
 
             // Foreign key constraints
@@ -37,3 +40,4 @@ class CreateBookingsTable extends Migration
         Schema::dropIfExists('bookings');
     }
 }
+

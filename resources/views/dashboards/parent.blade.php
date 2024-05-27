@@ -32,6 +32,8 @@
                                 <p class="text-sm text-gray-600 mt-2"><strong>Vehicle:</strong> {{ $ride->vehicle->name }}</p>
                                 <p class="text-sm text-gray-600 mt-2"><strong>Date:</strong> {{ \Carbon\Carbon::parse($ride->date)->format('d M Y, h:i A') }}</p>
                                 <p class="text-sm text-gray-600 mt-2"><strong>Price:</strong> {{ $ride->price }} LKR</p>
+                                <p class="text-sm text-gray-600 mt-2"><strong>Pick Up Location:</strong> {{ $ride->pickup_location }}</p>
+                                <p class="text-sm text-gray-600 mt-2"><strong>Pick Up date & time:</strong> {{ \Carbon\Carbon::parse($ride->pickup_time)->format('d M Y, h:i A') }}</p>
                             </div>
                         @endforeach
                     </div>

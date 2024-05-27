@@ -27,13 +27,15 @@
                 @else
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         @foreach($upcomingRides as $ride)
-                            <div class="bg-green-100 p-6 rounded-lg shadow-md">
-                                <h4 class="text-xl font-semibold text-green-700">Ride to {{ $ride->location }}</h4>
-                                <p class="text-sm text-gray-600 mt-2"><strong>Vehicle:</strong> {{ $ride->vehicle->name }}</p>
-                                <p class="text-sm text-gray-600 mt-2"><strong>Date:</strong> {{ \Carbon\Carbon::parse($ride->date)->format('d M Y, h:i A') }}</p>
-                                <p class="text-sm text-gray-600 mt-2"><strong>Price:</strong> {{ $ride->price }} LKR</p>
-                            </div>
-                        @endforeach
+                        <div class="bg-green-100 p-6 rounded-lg shadow-md">
+                            <h4 class="text-xl font-semibold text-green-700">Ride to {{ $ride->location }}</h4>
+                            <p class="text-sm text-gray-600 mt-2"><strong>Vehicle:</strong> {{ $ride->vehicle->name }}</p>
+                            <p class="text-sm text-gray-600 mt-2"><strong>Date:</strong> {{ \Carbon\Carbon::parse($ride->date)->format('d M Y, h:i A') }}</p>
+                            <p class="text-sm text-gray-600 mt-2"><strong>Price:</strong> {{ $ride->price }} LKR</p>
+                            <p class="text-sm text-gray-600 mt-2"><strong>Pick Up Location:</strong> {{ $ride->pickup_location }}</p>
+                            <p class="text-sm text-gray-600 mt-2"><strong>Pick Up date & time:</strong> {{ \Carbon\Carbon::parse($ride->pickup_time)->format('d M Y, h:i A') }}</p>
+                        </div>
+                    @endforeach
                     </div>
                 @endif
             </div>
