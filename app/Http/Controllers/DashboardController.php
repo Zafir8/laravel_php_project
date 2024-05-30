@@ -9,6 +9,7 @@ use App\Models\CustomerDetail;
 use App\Models\User;
 use App\Models\Booking;
 use App\Enums\Role;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -20,8 +21,33 @@ class DashboardController extends Controller
             $subscriptions = CustomerDetail::with('user', 'plan')->get();
             $totalUsers = User::count();
             $subscribedUsers = Subscriber::distinct('user_id')->count('user_id');
+            $totalRides = Booking::count();
+            $rides = Booking::with('driver', 'vehicle', 'user')->get();
 
-            return view('admin.dashboard', compact('subscriptions', 'totalUsers', 'subscribedUsers'));
+            // Prepare data for the chart using created_at timestamp
+            $rideCounts = Booking::selectRaw('count(*) as count, strftime("%m", created_at) as month')
+                ->groupBy('month')
+                ->pluck('count', 'month')
+                ->toArray();
+
+            // Get the labels for the months
+            $rideMonths = array_keys($rideCounts);
+            $rideMonths = array_map(function ($month) {
+                return Carbon::create()->month($month)->format('F');
+            }, $rideMonths);
+
+            // Prepare revenue data
+            $revenueData = CustomerDetail::selectRaw('SUM(price) as revenue, strftime("%m", purchase_date) as month')
+                ->groupBy('month')
+                ->pluck('revenue', 'month')
+                ->toArray();
+
+            $revenueMonths = array_keys($revenueData);
+            $revenueMonths = array_map(function ($month) {
+                return Carbon::create()->month($month)->format('F');
+            }, $revenueMonths);
+
+            return view('admin.dashboard', compact('subscriptions', 'totalUsers', 'subscribedUsers', 'totalRides', 'rides', 'rideCounts', 'rideMonths', 'revenueData', 'revenueMonths'));
 
         } else {
             $subscriptions = Subscriber::where('user_id', $user->id)->with('plan')->get();
@@ -47,3 +73,4 @@ class DashboardController extends Controller
         }
     }
 }
+

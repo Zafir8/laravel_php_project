@@ -19,7 +19,6 @@ class Booking extends Model
         'amount',
         'pickup_location',
         'pickup_time',
-        'date',
     ];
 
     /**
