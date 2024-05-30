@@ -22,16 +22,24 @@ class DashboardController extends Controller
             $subscribedUsers = Subscriber::distinct('user_id')->count('user_id');
 
             return view('admin.dashboard', compact('subscriptions', 'totalUsers', 'subscribedUsers'));
+
         } else {
             $subscriptions = Subscriber::where('user_id', $user->id)->with('plan')->get();
-            $upcomingRides = Booking::where('user_id', $user->id)->where('date', '>=', now())->with('vehicle')->get();
+            $upcomingRides = Booking::where('user_id', $user->id)
+                ->where('date', '>=', now())
+                ->with('vehicle', 'driver', 'vehicleCategory')
+                ->get();
 
             if ($user->role === Role::ParentRole) {
                 return view('dashboards.parent', compact('subscriptions', 'upcomingRides'));
             } elseif ($user->role === Role::Student) {
                 return view('dashboards.student', compact('subscriptions', 'upcomingRides'));
             } elseif ($user->role === Role::Driver) {
-                $assignedRides = Booking::where('vehicle_id', $user->id)->where('date', '>=', now())->with('vehicle')->get();
+                $assignedRides = Booking::where('driver_id', $user->id)
+                    ->where('date', '>=', now())
+                    ->with('vehicle', 'passenger', 'vehicleCategory')
+                    ->get();
+
                 return view('dashboards.driver', compact('subscriptions', 'assignedRides'));
             } else {
                 return view('dashboard', compact('subscriptions', 'upcomingRides'));

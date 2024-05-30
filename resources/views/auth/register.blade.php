@@ -1,5 +1,5 @@
-<x-guest-layout>
-    <div class="min-h-screen flex items-center justify-center bg-gray-100">
+<x-app-layout>
+    <div class="flex items-center justify-center bg-gray-100 my-10">
         <div class="w-full max-w-md p-6 bg-white shadow-md rounded-lg">
 
             <img src="{{ asset('images/Shiftme logo.png') }}" alt="Custom Logo" class="mx-auto h-16 w-auto">
@@ -67,4 +67,4 @@
             </form>
         </div>
     </div>
-</x-guest-layout>
+</x-app-layout>

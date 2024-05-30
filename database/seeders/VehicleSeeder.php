@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Vehicle;
 
 class VehicleSeeder extends Seeder
 {
@@ -24,9 +24,6 @@ class VehicleSeeder extends Seeder
                 'owner_license' => '123456789V',
                 'owner_address' => '123, Main Street, Colombo 01',
                 'owner_mobile' => '0712345678',
-
-
-
             ],
             [
                 'vehicle_category_id' => 1,
@@ -39,8 +36,6 @@ class VehicleSeeder extends Seeder
                 'owner_license' => '123456789V',
                 'owner_address' => '123, Main Street, Colombo 01',
                 'owner_mobile' => '0712345678',
-
-
             ],
             [
                 'vehicle_category_id' => 1,
@@ -53,14 +48,37 @@ class VehicleSeeder extends Seeder
                 'owner_license' => '123456789V',
                 'owner_address' => '123, Main Street, Colombo 01',
                 'owner_mobile' => '0712345678',
-            ]
-
+            ],
+            // Van
+            [
+                'vehicle_category_id' => 2,
+                'number' => 'MN 1122 OP',
+                'status' => 'active',
+                'engine_number' => '123459',
+                'chassis_number' => '123459',
+                'owner_name' => 'Jane Doe',
+                'owner_nic' => '123456789V',
+                'owner_license' => '123456789V',
+                'owner_address' => '123, Main Street, Colombo 01',
+                'owner_mobile' => '0712345678',
+            ],
+            // Bus
+            [
+                'vehicle_category_id' => 2,
+                'number' => 'QR 1314 ST',
+                'status' => 'active',
+                'engine_number' => '123460',
+                'chassis_number' => '123460',
+                'owner_name' => 'Jane Doe',
+                'owner_nic' => '123456789V',
+                'owner_license' => '123456789V',
+                'owner_address' => '123, Main Street, Colombo 01',
+                'owner_mobile' => '0712345678',
+            ],
         ];
 
-
-
         foreach ($vehicles as $vehicle) {
-            \App\Models\Vehicle::create([
+            Vehicle::create([
                 'number' => $vehicle['number'],
                 'status' => $vehicle['status'],
                 'engine_number' => $vehicle['engine_number'],

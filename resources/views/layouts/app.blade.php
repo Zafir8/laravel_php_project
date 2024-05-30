@@ -41,6 +41,22 @@
             <main>
                 {{ $slot }}
             </main>
+            <footer class="bg-deep-blue text-white text-center p-4">
+                <div class="container mx-auto">
+                    <p>&copy; 2024 ShuttleGo. All rights reserved.</p>
+                    <div class="flex justify-center space-x-4 mt-2">
+                        <a href="#privacy-policy" class="hover:text-gray-300">Privacy Policy</a>
+                        <a href="#terms-of-service" class="hover:text-gray-300">Terms of Service</a>
+                        <a href="#contact-us" class="hover:text-gray-300">Contact Us</a>
+                    </div>
+                    <p class="mt-2">Follow us on social media</p>
+                    <div class="flex justify-center space-x-4 mt-2">
+                        <a href="your_facebook_link" class="hover:text-gray-300"><i class="fab fa-facebook-f"></i></a>
+                        <a href="your_twitter_link" class="hover:text-gray-300"><i class="fab fa-twitter"></i></a>
+                        <a href="your_instagram_link" class="hover:text-gray-300"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </footer>
         </div>
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
