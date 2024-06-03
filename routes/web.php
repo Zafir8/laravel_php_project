@@ -43,3 +43,8 @@ Route::middleware([
 });
 
 
+// route for about us page
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+

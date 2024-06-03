@@ -20,13 +20,13 @@
         <!-- Navbar Links -->
         <div id="navbarMenu" class="w-full block flex-grow lg:flex lg:items-center lg:w-auto hidden">
             <div class="text-sm lg:flex-grow">
-                <a href="#home" class="block mt-1 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
+                <a href="{{route('home')}}" class="block mt-1 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
                     Home
                 </a>
-                <a href="#book-a-ride" class="block mt-1 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
+                <a href="{{route('book.ride')}}" class="block mt-1 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
                     Book a Ride
                 </a>
-                <a href="#about-us" class="block mt-1 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
+                <a href="{{route('about')}}" class="block mt-1 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
                     About Us
                 </a>
                 <a href="#contact-us" class="block mt-1 lg:inline-block lg:mt-0 text-white hover:text-white">
