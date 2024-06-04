@@ -29,7 +29,7 @@
                 <a href="{{route('about')}}" class="block mt-1 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
                     About Us
                 </a>
-                <a href="#contact-us" class="block mt-1 lg:inline-block lg:mt-0 text-white hover:text-white">
+                <a href="{{route('contact')}}" class="block mt-1 lg:inline-block lg:mt-0 text-white hover:text-white">
                     Contact Us
                 </a>
             </div>

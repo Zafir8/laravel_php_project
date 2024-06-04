@@ -9,6 +9,7 @@ use App\Http\Controllers\PlanController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ContactController;
 
 // Home and Checkout Routes
 Route::get('/', [PlanController::class, 'home'])->name('home');
@@ -48,3 +49,9 @@ Route::get('/about', function () {
     return view('about');
 })->name('about');
 
+// route for contact us page
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
+
+Route::post('/contact/submit', [ContactController::class, 'submit'])->name('contact.submit');
