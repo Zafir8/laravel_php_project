@@ -25,7 +25,6 @@ class BookingController extends Controller
      */
     public function bookRide(Request $request)
     {
-
         $request->validate([
             'location' => 'required|string',
             'vehicle_category_id' => 'required|integer|exists:vehicle_categories,id',
@@ -33,19 +32,34 @@ class BookingController extends Controller
             'pickup_time' => 'required|date_format:Y-m-d\TH:i',
         ]);
 
-        // get all the users with the role of driver
-        $driver = User::where('role', 4)
-            ->inRandomOrder()
-            ->first();
+        // Get a driver
+        $driver = User::where('role', 4)->inRandomOrder()->first();
 
-        // check if a driver exists, if not throw an error
+        // Check if a driver exists, if not throw an error
         if (!$driver) {
             return redirect()->route('dashboard')->with('error', 'No driver available at the moment. Please try again later.');
         }
 
-        // get a vehicle
+        // Get a vehicle
         $vehicle = Vehicle::where('vehicle_category_id', $request->vehicle_category_id)->first();
 
+        // Check if a vehicle exists, if not throw an error
+        if (!$vehicle) {
+            return redirect()->route('dashboard')->with('error', 'No vehicle available for the selected category. Please try again later.');
+        }
+
+        // Get the vehicle category
+        $vehicleCategory = $vehicle->category;
+
+        // Check if the vehicle category is found, if not throw an error
+        if (!$vehicleCategory) {
+            return redirect()->route('dashboard')->with('error', 'Vehicle category not found. Please try again later.');
+        }
+
+        // Calculate the price based on the vehicle category
+        $amount = $this->calculatePrice($vehicleCategory);
+
+        // Create the booking
         Booking::create([
             'user_id' => Auth::id(),
             'driver_id' => $driver->id,
@@ -54,10 +68,8 @@ class BookingController extends Controller
             'vehicle_id' => $vehicle->id,
             'pickup_location' => $request->pickup_location,
             'pickup_time' => $request->pickup_time,
-            'amount' => 1000, // Assuming a fixed amount for demonstration
+            'amount' => $amount,
         ]);
-
-
 
         return redirect()->route('dashboard')->with('success', 'Ride booked successfully!');
     }
@@ -67,14 +79,13 @@ class BookingController extends Controller
      */
     private function calculatePrice(VehicleCategory $vehicleCategory)
     {
-        // Implement your pricing logic here. For now, let's assume a fixed price for each vehicle type.
         switch ($vehicleCategory->name) {
             case 'Bus':
-                return 1000; // Example price for bus
+                return 500;
             case 'Van':
-                return 800; // Example price for van
+                return 250;
             default:
-                return 500; // Default price
+                return 200;
         }
     }
 }

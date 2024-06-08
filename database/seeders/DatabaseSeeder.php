@@ -23,6 +23,28 @@ class DatabaseSeeder extends Seeder
             'role' => 1
         ]);
 
+        \App\Models\User::factory()->create([
+            'name' => 'Driver 1',
+            'email' => 'driver@shuttlego.com',
+            'password' => bcrypt('driver'),
+            'role' => 4 // Driver
+        ]);
+
+        // create parent and student
+        \App\Models\User::factory()->create([
+            'name' => 'Parent 1',
+            'email' => 'test_parent@shuttlego.com',
+            'password' => bcrypt('parent'),
+            'role' => 2 // Parent
+        ]);
+
+        \App\Models\User::factory()->create([
+            'name' => 'Student 1',
+            'email' => 'student@shuttego.com',
+            'password' => bcrypt('student'),
+            'role' => 3 // Student
+        ]);
+
         $this->call([
             VehicleCategorySeeder::class,
             DriverProfileSeeder::class,

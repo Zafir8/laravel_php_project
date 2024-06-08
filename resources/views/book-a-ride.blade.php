@@ -12,8 +12,8 @@
         <div class="absolute bottom-0 left-0 right-0 z-10 p-4">
             <div class="flex justify-center items-center space-x-4 mb-4">
                 @foreach($vehicleCategories as $category)
-                    <div class="cursor-pointer vehicle-card flex-1 p-2 border border-gray-300 rounded-lg shadow-sm text-center bg-white bg-opacity-75 hover:bg-gray-100" data-id="{{ $category->id }}" data-price="{{ $category->id == 1 ? 1000 : 800 }}">
-                        <i class="fas {{ $category->id == 1 ? 'fa-bus' : 'fa-shuttle-van' }} mx-auto mb-2 h-8 w-8 text-indigo-600"></i>
+                    <div class="cursor-pointer vehicle-card flex-1 p-2 border border-gray-300 rounded-lg shadow-sm text-center bg-white bg-opacity-75 hover:bg-gray-100" data-id="{{ $category->id }}" data-price="{{ $category->id == 1 ? 500 : ($category->id == 2 ? 250 : 200) }}">
+                        <i class="fas {{ $category->id == 1 ? 'fa-bus' : ($category->id == 2 ? 'fa-shuttle-van' : 'fa-car') }} mx-auto mb-2 h-8 w-8 text-indigo-600"></i>
                         <p class="text-xs font-semibold">{{ $category->name }}</p>
                     </div>
                 @endforeach
