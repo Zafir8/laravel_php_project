@@ -75,6 +75,51 @@ class BookingController extends Controller
     }
 
     /**
+     * Cancel a ride.
+     */
+    public function cancelRide($id)
+    {
+        $booking = Booking::find($id);
+
+        if ($booking) {
+            $booking->status = 'cancelled';
+            $booking->save();
+
+            return redirect()->back()->with('success', 'Ride cancelled successfully.');
+        }
+
+        return redirect()->back()->with('error', 'Ride not found.');
+    }
+
+    public function cancelRideByDriver($id)
+    {
+        $booking = Booking::find($id);
+
+        if ($booking && $booking->driver_id == Auth::id()) {
+            $booking->status = 'cancelled';
+            $booking->save();
+
+            return redirect()->back()->with('success', 'Ride cancelled successfully.');
+        }
+
+        return redirect()->back()->with('error', 'Ride not found or you are not authorized to cancel this ride.');
+    }
+
+    public function cancelRideByStudent($id)
+    {
+        $booking = Booking::find($id);
+
+        if ($booking && $booking->user_id == Auth::id()) {
+            $booking->status = 'cancelled';
+            $booking->save();
+
+            return redirect()->back()->with('success', 'Ride cancelled successfully.');
+        }
+
+        return redirect()->back()->with('error', 'Ride not found or you are not authorized to cancel this ride.');
+    }
+
+    /**
      * Calculate the price based on the vehicle category.
      */
     private function calculatePrice(VehicleCategory $vehicleCategory)

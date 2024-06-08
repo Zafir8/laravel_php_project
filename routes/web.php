@@ -21,6 +21,9 @@ Route::get('payment/cancel', [CheckoutController::class, 'cancel'])->name('payme
 // Book a Ride Routes
 Route::get('/book-a-ride', [BookingController::class, 'show'])->middleware('auth')->name('book.ride');
 Route::post('/book-a-ride', [BookingController::class, 'bookRide'])->middleware('auth')->name('book.ride.submit');
+Route::patch('/cancel-ride/{id}', [BookingController::class, 'cancelRide'])->name('cancel.ride');
+Route::patch('/driver/cancel-ride/{id}', [BookingController::class, 'cancelRideByDriver'])->name('driver.cancel.ride');
+Route::patch('/student/cancel-ride/{id}', [BookingController::class, 'cancelRideByStudent'])->name('student.cancel.ride');
 
 // PayPal Routes
 Route::post('paypal/create-order/{plan}', [PayPalController::class, 'createOrder'])->name('paypal.createOrder');

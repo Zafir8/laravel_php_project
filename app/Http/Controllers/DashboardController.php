@@ -21,11 +21,13 @@ class DashboardController extends Controller
             $subscriptions = CustomerDetail::with('user', 'plan')->get();
             $totalUsers = User::count();
             $subscribedUsers = Subscriber::distinct('user_id')->count('user_id');
-            $totalRides = Booking::count();
+            $totalRides = Booking::where('status', '!=', 'cancelled')->count();
+            $canceledRides = Booking::where('status', 'cancelled')->count();
             $rides = Booking::with('driver', 'vehicle', 'user')->get();
 
             // Prepare data for the chart using created_at timestamp
             $rideCounts = Booking::selectRaw('count(*) as count, strftime("%m", created_at) as month')
+                ->where('status', '!=', 'cancelled')
                 ->groupBy('month')
                 ->pluck('count', 'month')
                 ->toArray();
@@ -47,12 +49,13 @@ class DashboardController extends Controller
                 return Carbon::create()->month($month)->format('F');
             }, $revenueMonths);
 
-            return view('admin.dashboard', compact('subscriptions', 'totalUsers', 'subscribedUsers', 'totalRides', 'rides', 'rideCounts', 'rideMonths', 'revenueData', 'revenueMonths'));
+            return view('admin.dashboard', compact('subscriptions', 'totalUsers', 'subscribedUsers', 'totalRides', 'canceledRides', 'rides', 'rideCounts', 'rideMonths', 'revenueData', 'revenueMonths'));
 
         } else {
             $subscriptions = Subscriber::where('user_id', $user->id)->with('plan')->get();
             $upcomingRides = Booking::where('user_id', $user->id)
                 ->where('date', '>=', now())
+                ->where('status', '!=', 'cancelled')
                 ->with('vehicle', 'driver', 'vehicleCategory')
                 ->get();
 
@@ -63,6 +66,7 @@ class DashboardController extends Controller
             } elseif ($user->role === Role::Driver) {
                 $assignedRides = Booking::where('driver_id', $user->id)
                     ->where('date', '>=', now())
+                    ->where('status', '!=', 'cancelled')
                     ->with('vehicle', 'passenger', 'vehicleCategory')
                     ->get();
 
@@ -73,4 +77,3 @@ class DashboardController extends Controller
         }
     }
 }
-

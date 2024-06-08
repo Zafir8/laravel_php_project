@@ -2,7 +2,7 @@
     <div class="container mx-auto py-12">
         <h2 class="text-2xl font-bold mb-6">Admin Dashboard</h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             <div class="bg-blue-500 shadow-md rounded-lg p-6 text-center text-white">
                 <h3 class="text-lg font-semibold">Total Registered Users</h3>
                 <p class="text-3xl font-bold">{{ $totalUsers }}</p>
@@ -14,6 +14,10 @@
             <div class="bg-red-500 shadow-md rounded-lg p-6 text-center text-white">
                 <h3 class="text-lg font-semibold">Total Rides</h3>
                 <p class="text-3xl font-bold">{{ $totalRides }}</p>
+            </div>
+            <div class="bg-yellow-500 shadow-md rounded-lg p-6 text-center text-white">
+                <h3 class="text-lg font-semibold">Canceled Rides</h3>
+                <p class="text-3xl font-bold">{{ $canceledRides }}</p>
             </div>
         </div>
 
@@ -66,6 +70,7 @@
                     <th class="py-3 px-4">Pickup Location</th>
                     <th class="py-3 px-4">Pickup Time</th>
                     <th class="py-3 px-4">Date</th>
+                    <th class="py-3 px-4">Status</th> <!-- Add this column for status -->
                 </tr>
                 </thead>
                 <tbody>
@@ -79,6 +84,7 @@
                         <td class="py-3 px-4">{{ $ride->pickup_location }}</td>
                         <td class="py-3 px-4">{{ \Carbon\Carbon::parse($ride->pickup_time)->format('d M Y, h:i A') }}</td>
                         <td class="py-3 px-4">{{ \Carbon\Carbon::parse($ride->created_at)->format('d M Y, h:i A') }}</td>
+                        <td class="py-3 px-4">{{ ucfirst($ride->status) }}</td> <!-- Display status here -->
                     </tr>
                 @endforeach
                 </tbody>
