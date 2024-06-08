@@ -12,13 +12,16 @@ class VehicleController extends Controller
 {
     /**
      * Display a listing of the resource.
-     */
-    public function index()
+        */
+    public function index(Request $request)
     {
+
         $vehicles = Vehicle::paginate(10); // Adjust the number as needed
 
-        return view('vehicle.index', compact('vehicles'));
+        return response()->json($vehicles);
+
     }
+
 
     /**
      * Show the form for creating a new resource.
