@@ -17,9 +17,7 @@ class VehicleController extends Controller
     {
 
         $vehicles = Vehicle::paginate(10); // Adjust the number as needed
-
-        return response()->json($vehicles);
-
+        return view('vehicle.index', compact('vehicles'));
     }
 
 

@@ -2,8 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\VehicleController;
-use App\Http\Controllers\VehicleCategoryController;
+use App\Http\Controllers\Api\VehicleCategoryController as ApiVehicleCategoryController;
+use App\Http\Controllers\Api\VehicleController as ApiVehicleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,5 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('vehicles', [VehicleController::class, 'index']);
-Route::get('vehicle-categories', [VehicleCategoryController::class, 'index']);
+Route::get('vehicle-categories', [ApiVehicleCategoryController::class, 'index']);
+Route::get('vehicles', [ApiVehicleController::class, 'index']);

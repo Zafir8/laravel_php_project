@@ -11,8 +11,9 @@ class VehicleCategoryController extends Controller
     public function index()
     {
         $vehicleCategories = VehicleCategory::paginate(10); // Adjust the number as needed
-
-        return response()->json($vehicleCategories);
+        return view('vehicle-categories.index', [
+            'categories' => $vehicleCategories
+        ]);
     }
 
     public function create()
