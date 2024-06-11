@@ -13,4 +13,15 @@ class VehicleController extends Controller
         $vehicles = Vehicle::paginate(10); // Adjust the number as needed
         return response()->json($vehicles);
     }
+
+    public function getVehiclesByCategory($categoryId)
+    {
+        $vehicles = Vehicle::where('vehicle_category_id', $categoryId)->get();
+
+        if ($vehicles->isEmpty()) {
+            return response()->json(['message' => 'No vehicles found for this category'], 404);
+        }
+
+        return response()->json($vehicles);
+    }
 }

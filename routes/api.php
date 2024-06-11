@@ -22,3 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('vehicle-categories', [ApiVehicleCategoryController::class, 'index']);
 Route::get('vehicles', [ApiVehicleController::class, 'index']);
+
+Route::get('vehicles/{categoryId}', [ApiVehicleController::class, 'getVehiclesByCategory']);
