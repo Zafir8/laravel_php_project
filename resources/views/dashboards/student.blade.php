@@ -23,7 +23,8 @@
                         @foreach($subscriptions as $subscription)
                             <div class="bg-indigo-100 p-6 rounded-lg shadow-md">
                                 <h4 class="text-xl font-semibold text-indigo-700">{{ $subscription->plan->name }}</h4>
-                                <p class="text-sm text-gray-600 mt-2"><strong>Price:</strong> {{ $subscription->price }} LKR</p>
+                                <p class="text-sm text-gray-600 mt-2"><strong>Original Price:</strong> {{ $subscription->plan->price }} LKR</p>
+                                <p class="text-sm text-gray-600 mt-2"><strong>Remaining Price:</strong> {{ $subscription->price }} LKR</p>
                                 <p class="text-sm text-gray-600 mt-2"><strong>Purchase Date:</strong> {{ \Carbon\Carbon::parse($subscription->purchase_date)->format('d M Y') }}</p>
                                 <p class="text-sm text-gray-600 mt-2"><strong>Renewal Date:</strong> {{ \Carbon\Carbon::parse($subscription->renewal_date)->format('d M Y') }}</p>
                             </div>
@@ -44,6 +45,7 @@
                                 <h4 class="text-xl font-semibold text-green-700">Ride to {{ $ride->location }}</h4>
                                 <p class="text-sm text-gray-600 mt-2"><strong>Vehicle:</strong> {{ $ride->vehicleCategory->name }}</p>
                                 <p class="text-sm text-gray-600 mt-2"><strong>Vehicle Number:</strong> {{ $ride->vehicle?->number }}</p>
+                                <p class="text-sm text-gray-600 mt-2"><strong>Phone:</strong> {{$ride->vehicle->owner_mobile }}</p>
                                 <p class="text-sm text-gray-600 mt-2"><strong>Date:</strong> {{ \Carbon\Carbon::parse($ride->date)->format('d M Y, h:i A') }}</p>
                                 <p class="text-sm text-gray-600 mt-2"><strong>Price:</strong> {{ $ride->amount }} LKR</p>
                                 <p class="text-sm text-gray-600 mt-2"><strong>Pick Up Location:</strong> {{ $ride->pickup_location }}</p>

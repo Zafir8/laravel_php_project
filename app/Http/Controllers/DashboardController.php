@@ -25,6 +25,9 @@ class DashboardController extends Controller
             $canceledRides = Booking::where('status', 'cancelled')->count();
             $rides = Booking::with('driver', 'vehicle', 'user')->get();
 
+            // Calculate total revenue
+            $totalRevenue = CustomerDetail::sum('price');
+
             // Prepare data for the chart using created_at timestamp
             $rideCounts = Booking::selectRaw('count(*) as count, strftime("%m", created_at) as month')
                 ->where('status', '!=', 'cancelled')
@@ -49,7 +52,7 @@ class DashboardController extends Controller
                 return Carbon::create()->month($month)->format('F');
             }, $revenueMonths);
 
-            return view('admin.dashboard', compact('subscriptions', 'totalUsers', 'subscribedUsers', 'totalRides', 'canceledRides', 'rides', 'rideCounts', 'rideMonths', 'revenueData', 'revenueMonths'));
+            return view('admin.dashboard', compact('subscriptions', 'totalUsers', 'subscribedUsers', 'totalRides', 'canceledRides', 'rides', 'rideCounts', 'rideMonths', 'revenueData', 'revenueMonths', 'totalRevenue'));
 
         } else {
             $subscriptions = Subscriber::where('user_id', $user->id)->with('plan')->get();

@@ -10,7 +10,7 @@ class PlanSeeder extends Seeder {
     public function run(): void {
         Plan::create([
             'name' => 'Subscription Plan',
-            'price' => 10000,
+            'price' => 11000,
             'description' => '40 trips per month, Child app access, Parent app access, Official mobile app',
         ]);
     }

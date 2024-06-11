@@ -46,7 +46,7 @@ class CheckoutController extends Controller
             'payment_method' => 'card',
         ]);
 
-        // Assuming the payment is successful, store the subscription
+        //  the payment is successful, store the subscription
         $subscription = Subscriber::create([
             'user_id' => $user->id,
             'plan_id' => $plan->id,

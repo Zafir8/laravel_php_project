@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="container mx-auto py-12">
+    <div class="container mx-auto py-12 bg-white">
         <h2 class="text-2xl font-bold mb-6">Admin Dashboard</h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
@@ -18,6 +18,10 @@
             <div class="bg-yellow-500 shadow-md rounded-lg p-6 text-center text-white">
                 <h3 class="text-lg font-semibold">Canceled Rides</h3>
                 <p class="text-3xl font-bold">{{ $canceledRides }}</p>
+            </div>
+            <div class="bg-purple-500 shadow-md rounded-lg p-6 text-center text-white">
+                <h3 class="text-lg font-semibold">Total Revenue</h3>
+                <p class="text-3xl font-bold">{{ $totalRevenue }} LKR</p>
             </div>
         </div>
 
@@ -45,12 +49,12 @@
                 <tbody>
                 @foreach($subscriptions as $subscription)
                     <tr class="bg-gray-50 border-b hover:bg-gray-100">
-                        <td class="py-3 px-4">{{ $subscription->user_name }}</td>
-                        <td class="py-3 px-4">{{ $subscription->user_email }}</td>
+                        <td class="py-3 px-4">{{ $subscription->user->name }}</td>
+                        <td class="py-3 px-4">{{ $subscription->user->email }}</td>
                         <td class="py-3 px-4">{{ $subscription->plan->name }}</td>
                         <td class="py-3 px-4">{{ $subscription->price }} LKR</td>
-                        <td class="py-3 px-4">{{ $subscription->purchase_date->format('d M Y') }}</td>
-                        <td class="py-3 px-4">{{ $subscription->renewal_date->format('d M Y') }}</td>
+                        <td class="py-3 px-4">{{ \Carbon\Carbon::parse($subscription->purchase_date)->format('d M Y') }}</td>
+                        <td class="py-3 px-4">{{ \Carbon\Carbon::parse($subscription->renewal_date)->format('d M Y') }}</td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -70,7 +74,7 @@
                     <th class="py-3 px-4">Pickup Location</th>
                     <th class="py-3 px-4">Pickup Time</th>
                     <th class="py-3 px-4">Date</th>
-                    <th class="py-3 px-4">Status</th> <!-- Add this column for status -->
+                    <th class="py-3 px-4">Status</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -84,7 +88,7 @@
                         <td class="py-3 px-4">{{ $ride->pickup_location }}</td>
                         <td class="py-3 px-4">{{ \Carbon\Carbon::parse($ride->pickup_time)->format('d M Y, h:i A') }}</td>
                         <td class="py-3 px-4">{{ \Carbon\Carbon::parse($ride->created_at)->format('d M Y, h:i A') }}</td>
-                        <td class="py-3 px-4">{{ ucfirst($ride->status) }}</td> <!-- Display status here -->
+                        <td class="py-3 px-4">{{ ucfirst($ride->status) }}</td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -151,5 +155,4 @@
             });
         });
     </script>
-
 </x-app-layout>

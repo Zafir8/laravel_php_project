@@ -34,4 +34,10 @@ class Subscriber extends Model
     {
         return $this->belongsTo(Plan::class);
     }
+
+    public function deductPrice($amount)
+    {
+        $this->price -= $amount;
+        $this->save();
+    }
 }
