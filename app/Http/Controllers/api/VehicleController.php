@@ -10,7 +10,7 @@ class VehicleController extends Controller
 {
     public function index()
     {
-        $vehicles = Vehicle::paginate(10); // Adjust the number as needed
+        $vehicles = Vehicle::paginate(10);
         return response()->json($vehicles);
     }
 
